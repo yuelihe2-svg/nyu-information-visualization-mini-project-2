@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f4ee" />
+    <title>What Share Goes to Food? | U.S. Household Food Budgets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="masthead">
+        <div class="brand"><span class="brand-mark">↗</span> FOOD BUDGET ATLAS <span class="brand-subtitle"><span class="brand-divider">/</span> U.S. CONSUMER EXPENDITURES</span></div>
+        <a class="source-link" href="https://www.bls.gov/cex/" target="_blank" rel="noopener noreferrer">BLS data source ↗</a>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="eyebrow">AN INTERACTIVE VIEW OF 2015–2024</div>
+          <h1>What share goes <em>to food?</em></h1>
+          <p class="lede">Across U.S. income quintiles, a food bill can take a very different share of the annual household budget. Select a dot, year, or food segment to explore the pattern.</p>
+        </section>
+
+        <section class="controls" aria-label="Dashboard controls">
+          <div class="control-group">
+            <span class="control-label">SHOW SPENDING ON</span>
+            <div class="segmented" id="type-control" role="group" aria-label="Food spending category">
+              <button type="button" data-type="all" class="active">All food</button>
+              <button type="button" data-type="home">At home</button>
+              <button type="button" data-type="away">Away from home</button>
+            </div>
+          </div>
+          <div class="control-group year-control">
+            <label class="control-label" for="year-select">YEAR</label>
+            <select id="year-select" aria-label="Select year"></select>
+          </div>
+          <button class="reset-button" type="button" id="reset-button">Reset view ↺</button>
+        </section>
+
+        <section class="summary" aria-label="Selected values">
+          <div class="summary-main">
+            <span class="summary-label" id="selected-label">LOWEST INCOME QUINTILE · 2024</span>
+            <div class="summary-value"><span id="share-value">—</span><span class="percent">%</span></div>
+            <p id="summary-description">of annual expenditures went to food</p>
+          </div>
+          <div class="summary-aside">
+            <span class="summary-label" id="spending-label">ANNUAL FOOD SPENDING</span>
+            <strong id="spending-value">—</strong>
+            <p>Mean per consumer unit, current dollars</p>
+          </div>
+          <div class="summary-aside last">
+            <span class="summary-label">LOWEST MINUS HIGHEST</span>
+            <strong id="gap-value">—</strong>
+            <p>Percentage points in the selected year</p>
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="card card-main" aria-labelledby="quintile-title">
+            <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = all-food dollars</span></div>
+            <p class="card-description">Food spending as a percent of total annual expenditures. Select a quintile.</p>
+            <div id="quintile-chart" class="chart" role="img" aria-label="Dot plot of the food budget share for five income quintiles"></div>
+            <div class="chart-footnote">Income quintiles are ranked by income before taxes. Dollar values are not inflation adjusted.</div>
+          </section>
+
+          <section class="card card-composition" aria-labelledby="composition-title">
+            <div class="card-header"><div><span class="view-number">02 / BREAK DOWN</span><h2 id="composition-title">Home or away?</h2></div></div>
+            <p class="card-description">How each food category contributes to the total budget share. Select a segment.</p>
+            <div id="composition-chart" class="chart" role="img" aria-label="Stacked bar chart showing at-home and away-from-home food spending by income quintile"></div>
+            <div class="legend"><span><i class="swatch home"></i> At home</span><span><i class="swatch away"></i> Away from home</span></div>
+          </section>
+
+          <section class="card card-trend" aria-labelledby="trend-title">
+            <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div><span class="chart-note">Click a dark point to choose a year</span></div>
+            <p class="card-description">Annual food spending as a percent of annual expenditures, 2015–2024.</p>
+            <div id="trend-chart" class="chart" role="img" aria-label="Line chart showing food budget share from 2015 to 2024 for five income quintiles"></div>
+          </section>
+        </div>
+
+        <section class="method" aria-labelledby="method-title">
+          <div><span class="view-number">READING THE DATA</span><h2 id="method-title">A share, not an affordability score.</h2></div>
+          <p>Each point is an average annual expenditure for a group of consumer units, not the experience of every household. The budget share is food spending divided by total spending. A higher share does not by itself establish food insecurity, prices paid, or causation. The at-home and away-from-home figures may differ from total food by $1–$2 because BLS rounds published means.</p>
+        </section>
+      </main>
+
+      <footer><span>NYU Tandon · Information Visualization Mini-Project 2</span><span>Source: U.S. Bureau of Labor Statistics, Consumer Expenditure Surveys</span></footer>
+      <div id="tooltip" class="tooltip" role="status" aria-live="polite"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

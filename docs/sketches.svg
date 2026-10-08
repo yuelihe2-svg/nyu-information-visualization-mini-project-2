@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 465" role="img" aria-labelledby="title desc">
+  <title id="title">Three dashboard layout sketches</title>
+  <desc id="desc">A shows three equal columns, B shows a summary above two comparison cards and a full-width trend, and C shows a trend first.</desc>
+  <rect width="1200" height="465" fill="#f7f4ee"/>
+  <g font-family="Arial, sans-serif" fill="#17333a">
+    <text x="24" y="32" font-size="20" font-weight="bold">Three layout directions</text>
+    <text x="24" y="52" font-size="12" fill="#647f78">Wireframes for the same three coordinated views · option B is implemented</text>
+    <g transform="translate(24,80)">
+      <text x="0" y="0" font-size="15" font-weight="bold">A · Equal columns</text>
+      <rect x="0" y="18" width="360" height="320" rx="6" fill="white" stroke="#cdd7d1"/>
+      <rect x="14" y="32" width="332" height="48" rx="3" fill="#dce6e2"/>
+      <text x="180" y="62" text-anchor="middle" font-size="12">Summary</text>
+      <rect x="14" y="94" width="101" height="228" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <rect x="129" y="94" width="101" height="228" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <rect x="244" y="94" width="102" height="228" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <text x="65" y="204" text-anchor="middle" font-size="11">Compare</text>
+      <text x="180" y="204" text-anchor="middle" font-size="11">Breakdown</text>
+      <text x="295" y="204" text-anchor="middle" font-size="11">Trend</text>
+      <text x="0" y="362" font-size="11" fill="#647f78">Balanced, but the time axis is too narrow.</text>
+    </g>
+    <g transform="translate(420,80)">
+      <text x="0" y="0" font-size="15" font-weight="bold">B · Compare, then trend</text>
+      <rect x="0" y="18" width="360" height="320" rx="6" fill="white" stroke="#216d77" stroke-width="3"/>
+      <rect x="14" y="32" width="332" height="48" rx="3" fill="#17333a"/>
+      <text x="180" y="62" text-anchor="middle" font-size="12" fill="white">Summary / selected share</text>
+      <rect x="14" y="94" width="160" height="100" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <rect x="186" y="94" width="160" height="100" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <text x="94" y="148" text-anchor="middle" font-size="11">Compare</text>
+      <text x="266" y="148" text-anchor="middle" font-size="11">Breakdown</text>
+      <rect x="14" y="208" width="332" height="114" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <text x="180" y="270" text-anchor="middle" font-size="11">Full-width trend</text>
+      <text x="0" y="362" font-size="11" fill="#216d77" font-weight="bold">Selected: main comparison is prominent.</text>
+    </g>
+    <g transform="translate(816,80)">
+      <text x="0" y="0" font-size="15" font-weight="bold">C · Trend first</text>
+      <rect x="0" y="18" width="360" height="320" rx="6" fill="white" stroke="#cdd7d1"/>
+      <rect x="14" y="32" width="332" height="48" rx="3" fill="#dce6e2"/>
+      <text x="180" y="62" text-anchor="middle" font-size="12">Summary</text>
+      <rect x="14" y="94" width="332" height="114" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <text x="180" y="156" text-anchor="middle" font-size="11">Full-width trend</text>
+      <rect x="14" y="222" width="160" height="100" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <rect x="186" y="222" width="160" height="100" rx="3" fill="#eef2ef" stroke="#cdd7d1"/>
+      <text x="94" y="276" text-anchor="middle" font-size="11">Compare</text>
+      <text x="266" y="276" text-anchor="middle" font-size="11">Breakdown</text>
+      <text x="0" y="362" font-size="11" fill="#647f78">Time dominates the key group comparison.</text>
+    </g>
+  </g>
+</svg>

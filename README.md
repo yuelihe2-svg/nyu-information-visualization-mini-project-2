@@ -1,49 +1,43 @@
-# Mini-Project 2: Interactive Dashboard
+# Food Budget Atlas
 
-NYU Tandon Information Visualization coursework. Work in progress.
+An interactive English-language dashboard for NYU Tandon's Information Visualization Mini-Project 2. It compares the share of annual U.S. consumer-unit expenditures spent on food across five income quintiles, separates food at home from food away from home, and follows the pattern from 2015 through 2024.
 
-## Project status
+## Run locally
 
-Repository and assignment planning documents are ready. Dataset, research questions,
-tool, visual encodings, and layout are pending student decisions. No dashboard is implemented yet.
+1. Install [Node.js](https://nodejs.org/) 20.19+.
+2. In this repository, run `npm install` and then `npm run dev`.
+3. Open the localhost URL printed by Vite. If port 5173 is available, this is usually `http://127.0.0.1:5173/`.
 
-## Milestones
+The source CSV is committed, so the dashboard does **not** need a BLS API request at runtime. `npm run build` creates a production build in `dist/`; `npm run preview` serves that build locally. No account or API key is needed. If npm's system cache is unwritable on Windows, use `npm install --cache .npm-cache`.
 
-- Week 5: public dataset, three research questions, layout sketches, channel justification table.
-- Week 7: working prototype with at least three coordinated views; classroom feedback.
-- Week 8: dashboard, usability report, reflection, source code, and demonstration.
-- Confirm calendar dates against the course portal; the assignment only specifies course weeks.
+## Explore
 
-## Acceptance checklist
+- **View 1 — Compare:** select a dot to focus an income quintile. Dot area represents annual food dollars; horizontal position represents food as a share of total expenditures.
+- **View 2 — Break down:** select an at-home or away-from-home segment to focus both its quintile and category.
+- **View 3 — Follow time:** select a dark point on the focused quintile's line to change the year. The year dropdown is a second way to change years.
+- Any selection updates the summary and the other views. `Reset view` returns to all food, the lowest income quintile, and 2024. Hover for details. SVG marks and controls support keyboard selection.
 
-- [ ] Public dataset has at least four dimensions mixing quantitative, ordinal, and categorical data; no Iris, Titanic, or mtcars.
-- [ ] Use Tableau, D3.js, Plotly Dash, or Observable.
-- [ ] At least three views; selection in EACH view highlights or filters corresponding data in ALL other views.
-- [ ] Selections can be reset; tooltips provide details on demand.
-- [ ] At least four dimensions use suitable visual channels; the most important variable uses position.
-- [ ] Layout deliberately uses Gestalt principles and clear hierarchy.
-- [ ] Color palette is colorblind-safe and checked in greyscale; legends have at most seven items.
-- [ ] Two real peers each complete three specific tasks; findings lead to documented changes.
-- [ ] Usability report is 2–3 pages with observations, quotes, prioritized issues, and before/after evidence.
-- [ ] One-page reflection connects at least three lecture principles to concrete choices and tradeoffs.
-- [ ] Channel justification table is updated to match the final dashboard.
-- [ ] Hosted link works or local setup instructions run successfully.
-- [ ] Two or three annotated screenshots OR a video of at most 60 seconds demonstrate interaction.
-- [ ] Code is understandable, modular, commented, and sources/AI assistance are cited.
+## Data and interpretation
 
-## Documents
+The [BLS Consumer Expenditure Surveys](https://www.bls.gov/cex/) supply annual average expenditures per **consumer unit**, grouped by quintiles of **income before taxes**. The dataset contains 50 year–quintile records (2015–2024 × five quintiles) and four original spending measures: total expenditures, all food, food at home, and food away from home. `scripts/fetch_data.py` retrieves 20 BLS series from the [BLS Public Data API](https://www.bls.gov/developers/api_signature_v2.htm), validates completeness and published rounding, and writes both the API response and `data/food_spending.csv`. To refresh the frozen data, run `python scripts/fetch_data.py` (Python 3 standard library only).
 
-- [Proposal](docs/proposal.md)
-- [Usability testing protocol and report](docs/usability-testing.md)
-- [Reflection outline](docs/reflection.md)
-- [Sources and AI assistance](docs/sources.md)
+The main measure is `food spending / total expenditures × 100`. Home and away shares use the same denominator. Means are group averages, so the chart does not describe every household. Dollar figures are current dollars and are **not inflation adjusted**. The views describe spending patterns and cannot determine food insecurity, causality, or why shares changed. BLS-rounded components can differ from the BLS food total by up to $2.
 
-## Academic integrity
+## Coursework deliverables
 
-The student chooses and explains the visual encodings and layout. AI may assist with code,
-but the student must understand every submitted line. Testing results must come from real
-participants. Adapted code, tutorials, templates, and AI-assisted code must be acknowledged.
+- [Proposal, research questions, channel table, and three layout sketches](docs/proposal.md)
+- [Usability protocol and structured report template](docs/usability-testing.md) — the required two-peer sessions remain to be conducted honestly.
+- [One-page reflection draft](docs/reflection.md)
+- [One-page reflection PDF](output/pdf/reflection.pdf)
+- [Sources and AI-assistance disclosure](docs/sources.md)
+- [Three annotated interaction screenshots](demo/README.md)
 
-## Running the dashboard
+The proposal and reflection are drafts for the student's own design review, as required by the course's academic-integrity instructions. No peer observations or quotations have been invented.
 
-Setup instructions will be added after the tool and implementation are selected.
+## Verification
+
+Run `npm run build` for the production build. With `npm run dev -- --port 4173` running, `node scripts/check_dashboard.mjs` checks selections originating in all three views, reset behavior, browser errors, and mobile horizontal overflow. The script uses a local Microsoft Edge installation through Playwright; the dashboard itself has no Edge dependency.
+
+## Implementation
+
+The dashboard uses D3.js for SVG scales, axes, marks, and data loading, and Vite to build the local application. `src/main.js` holds the shared selection state and chart renderers. `src/styles.css` provides the visual hierarchy, responsive layout, and focus states. No third-party chart template was adapted. Code and data provenance are documented in [sources](docs/sources.md).

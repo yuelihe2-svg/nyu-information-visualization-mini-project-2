@@ -48,7 +48,11 @@ try {
   });
   await page.waitForTimeout(520);
   const settled = await page.locator('.dot-hit').first().getAttribute('transform');
-  assert.equal(settled, initialPosition, 'Interrupted transitions must reach the latest data values');
+  // SVG transform interpolation decomposes through browser float matrices.
+  const coordinates = transform => transform.match(/-?\d+(?:\.\d+)?/g).map(Number);
+  coordinates(settled).forEach((value, i) => {
+    assert(Math.abs(value - coordinates(initialPosition)[i]) < 0.001, 'Interrupted transitions must reach the latest data values');
+  });
   assert.equal(await page.locator('.dot-hit').count(), 5);
   assert.equal(await page.locator('.segment').count(), 10);
   assert.equal(await page.locator('.trend-line').count(), 5);

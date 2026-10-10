@@ -81,7 +81,8 @@ function drawQuintiles() {
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
   const y = d3.scaleBand().domain(quintiles).range([0, plotHeight]).padding(.38);
-  const size = d3.scaleSqrt().domain(d3.extent(rows, r => r.food_total_usd)).range([5, 13]);
+  // A zero-based square-root radius keeps circle area proportional to dollars.
+  const size = d3.scaleSqrt().domain([0, d3.max(rows, r => r.food_total_usd)]).range([0, 13]);
 
   plot.append('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
@@ -152,7 +153,8 @@ function drawTrend() {
   plot.append('g').call(d3.axisLeft(y).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
   plot.append('line').attr('class', 'year-marker').attr('x1', x(state.year)).attr('x2', x(state.year)).attr('y1', 0).attr('y2', plotHeight);
 
-  const line = d3.line().x(r => x(r.year)).y(r => y(share(r))).curve(d3.curveMonotoneX);
+  // Straight segments connect observed annual means without inventing a smooth trajectory.
+  const line = d3.line().x(r => x(r.year)).y(r => y(share(r)));
   const groups = quintiles.map(quintile => ({ quintile, data: rows.filter(r => r.income_quintile === quintile).sort((a,b) => a.year-b.year) }));
   plot.selectAll('.trend-line').data(groups).join('path').attr('class', 'trend-line')
     .attr('d', g => line(g.data)).attr('stroke', g => g.quintile === state.quintile ? colors.ink : '#a8b7b5')

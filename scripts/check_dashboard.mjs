@@ -9,18 +9,23 @@ await page.locator('#share-value').waitFor();
 const initial = await page.locator('#share-value').innerText();
 if (initial !== '15.7') throw new Error(`Unexpected initial share: ${initial}`);
 
-await page.locator('#quintile-chart [aria-label^="Highest 20%"]').first().click();
+await page.locator('#quintile-chart').getByRole('button', { name: /^Highest 20%/ }).click();
 if (await page.locator('#share-value').innerText() !== '11.3') throw new Error('Quintile selection did not update summary');
 if (!await page.locator('#composition-chart .row-label.selected').filter({ hasText: 'Highest 20%' }).count()) throw new Error('Quintile selection did not update composition');
+if (!await page.locator('#trend-chart .end-label.selected').filter({ hasText: 'Highest' }).count()) throw new Error('Quintile selection did not update trend');
 
 await page.locator('#composition-chart [aria-label^="Middle 20%, away from home"]').click();
 if (await page.locator('#selected-label').innerText() !== 'MIDDLE 20% INCOME QUINTILE · 2024') throw new Error('Composition selection did not update quintile');
 if (await page.locator('#type-control button.active').innerText() !== 'Away from home') throw new Error('Composition selection did not update food type');
 if (!await page.locator('#trend-chart .end-label.selected').filter({ hasText: 'Middle' }).count()) throw new Error('Composition selection did not update trend');
 
+const compositionBeforeYear = await page.locator('#composition-chart .segment').first().getAttribute('aria-label');
 await page.locator('#trend-chart [aria-label^="Middle 20%, 2018:"]').click();
 if (await page.locator('#year-select').inputValue() !== '2018') throw new Error('Trend selection did not update year');
 if (await page.locator('#selected-label').innerText() !== 'MIDDLE 20% INCOME QUINTILE · 2018') throw new Error('Trend selection did not update summary');
+if (!await page.locator('#quintile-chart [aria-label*="2018:"]').count()) throw new Error('Trend selection did not update comparison');
+const compositionAfterYear = await page.locator('#composition-chart .segment').first().getAttribute('aria-label');
+if (compositionAfterYear === compositionBeforeYear) throw new Error('Trend selection did not update composition values');
 
 await page.locator('#reset-button').click();
 if (await page.locator('#share-value').innerText() !== '15.7') throw new Error('Reset failed');

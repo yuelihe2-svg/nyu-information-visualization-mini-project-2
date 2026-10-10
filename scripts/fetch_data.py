@@ -85,7 +85,25 @@ def main() -> None:
         writer = csv.DictWriter(output, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
-    print(f"Wrote {len(rows)} complete rows from {len(requested)} official BLS series")
+
+    # This tidy companion makes the nominal food-category dimension explicit.
+    long_rows = []
+    for row in rows:
+        for category, column in (("At home", "food_at_home_usd"), ("Away from home", "food_away_from_home_usd")):
+            long_rows.append({
+                "year": row["year"],
+                "income_quintile": row["income_quintile"],
+                "quintile_rank": row["quintile_rank"],
+                "food_category": category,
+                "category_expenditure_usd": row[column],
+                "total_expenditures_usd": row["total_expenditures_usd"],
+                "category_share_percent": round(100 * row[column] / row["total_expenditures_usd"], 3),
+            })
+    with (data_dir / "food_spending_long.csv").open("w", newline="", encoding="utf-8") as output:
+        writer = csv.DictWriter(output, fieldnames=long_rows[0].keys())
+        writer.writeheader()
+        writer.writerows(long_rows)
+    print(f"Wrote {len(rows)} wide and {len(long_rows)} long rows from {len(requested)} official BLS series")
     print("2024 food share by quintile:")
     for row in rows:
         if row["year"] == 2024:

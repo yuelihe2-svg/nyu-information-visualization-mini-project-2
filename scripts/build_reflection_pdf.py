@@ -9,7 +9,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.utils import simpleSplit
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output" / "pdf" / "reflection.pdf"
@@ -24,7 +24,8 @@ muted = colors.HexColor("#5f7772")
 accent = colors.HexColor("#c66f3e")
 
 source = (ROOT / "docs" / "reflection.md").read_text(encoding="utf-8")
-paragraphs = [part.strip() for part in source.split("\n\n") if part.strip()]
+prose, table_markdown = source.split("## Channel justification table", 1)
+paragraphs = [part.strip() for part in prose.split("\n\n") if part.strip()]
 title = paragraphs[0].removeprefix("# ")
 body = [part for part in paragraphs[2:]]  # skip the draft-status line
 
@@ -35,14 +36,36 @@ def markup(text: str) -> str:
 
 styles = {
     "title": ParagraphStyle("title", fontName="Georgia", fontSize=20, leading=24, textColor=navy, spaceAfter=16),
-    "body": ParagraphStyle("body", fontName="Georgia", fontSize=9.6, leading=14.6, textColor=navy, spaceAfter=12, alignment=TA_LEFT),
-    "note": ParagraphStyle("note", fontName="Georgia", fontSize=9, leading=13.5, textColor=muted, spaceBefore=5),
+    "body": ParagraphStyle("body", fontName="Georgia", fontSize=9.2, leading=13.5, textColor=navy, spaceAfter=10, alignment=TA_LEFT),
+    "note": ParagraphStyle("note", fontName="Georgia", fontSize=8.6, leading=12.5, textColor=muted, spaceBefore=3, spaceAfter=10),
+    "table_heading": ParagraphStyle("table_heading", fontName="Georgia-Bold", fontSize=7.3, leading=9, textColor=colors.white),
+    "table_cell": ParagraphStyle("table_cell", fontName="Georgia", fontSize=7.1, leading=9, textColor=navy),
+    "section": ParagraphStyle("section", fontName="Georgia-Bold", fontSize=9.2, leading=11, textColor=navy, spaceBefore=3, spaceAfter=6),
 }
 
 story = [Paragraph(title, styles["title"])]
 for i, paragraph in enumerate(body):
     style = styles["note"] if paragraph.startswith("**Interpretive limit:") else styles["body"]
     story.append(Paragraph(markup(paragraph), style))
+
+story.append(Paragraph("Channel justification table - current implementation", styles["section"]))
+lines = [line.strip() for line in table_markdown.splitlines() if line.strip().startswith("|")]
+cells = [[cell.strip() for cell in line.strip("|").split("|")] for line in lines]
+cells = [cells[0]] + cells[2:]  # skip Markdown separator row
+data = [[Paragraph(markup(cell), styles["table_heading"] if row == 0 else styles["table_cell"])
+         for cell in values] for row, values in enumerate(cells)]
+table = Table(data, colWidths=[105, 77, 144, 192], repeatRows=1, hAlign="LEFT")
+table.setStyle(TableStyle([
+    ("BACKGROUND", (0, 0), (-1, 0), navy),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f7f4ee")]),
+    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+    ("LEFTPADDING", (0, 0), (-1, -1), 5),
+    ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+    ("TOPPADDING", (0, 0), (-1, -1), 4),
+    ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ("LINEBELOW", (0, 0), (-1, 0), 0.4, navy),
+]))
+story.append(table)
 
 def decorate(canvas, doc):
     canvas.saveState()

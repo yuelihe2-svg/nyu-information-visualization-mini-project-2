@@ -1,0 +1,101 @@
+year,income_quintile,quintile_rank,food_category,category_expenditure_usd,total_expenditures_usd,category_share_percent
+2015,Lowest,1,At home,2499,24470,10.213
+2015,Lowest,1,Away from home,1268,24470,5.182
+2015,Second,2,At home,3271,35063,9.329
+2015,Second,2,Away from home,1751,35063,4.994
+2015,Middle,3,At home,3445,45912,7.503
+2015,Middle,3,Away from home,2354,45912,5.127
+2015,Fourth,4,At home,4545,63671,7.138
+2015,Fourth,4,Away from home,3620,63671,5.685
+2015,Highest,5,At home,6310,110508,5.71
+2015,Highest,5,Away from home,6040,110508,5.466
+2016,Lowest,1,At home,2502,25138,9.953
+2016,Lowest,1,Away from home,1360,25138,5.41
+2016,Second,2,At home,3112,36770,8.463
+2016,Second,2,Away from home,1866,36770,5.075
+2016,Middle,3,At home,3697,47664,7.756
+2016,Middle,3,Away from home,2527,47664,5.302
+2016,Fourth,4,At home,4738,64910,7.299
+2016,Fourth,4,Away from home,3698,64910,5.697
+2016,Highest,5,At home,6193,112221,5.519
+2016,Highest,5,Away from home,6320,112221,5.632
+2017,Lowest,1,At home,2582,26019,9.924
+2017,Lowest,1,Away from home,1488,26019,5.719
+2017,Second,2,At home,3622,39300,9.216
+2017,Second,2,Away from home,2049,39300,5.214
+2017,Middle,3,At home,4038,50470,8.001
+2017,Middle,3,Away from home,3023,50470,5.99
+2017,Fourth,4,At home,4893,67604,7.238
+2017,Fourth,4,Away from home,3863,67604,5.714
+2017,Highest,5,At home,6677,116988,5.707
+2017,Highest,5,Away from home,6402,116988,5.472
+2018,Lowest,1,At home,2709,26399,10.262
+2018,Lowest,1,Away from home,1400,26399,5.303
+2018,Second,2,At home,3620,39968,9.057
+2018,Second,2,Away from home,2220,39968,5.554
+2018,Middle,3,At home,4081,51729,7.889
+2018,Middle,3,Away from home,2877,51729,5.562
+2018,Fourth,4,At home,5081,69131,7.35
+2018,Fourth,4,Away from home,4272,69131,6.18
+2018,Highest,5,At home,6827,118781,5.748
+2018,Highest,5,Away from home,6522,118781,5.491
+2019,Lowest,1,At home,2790,28672,9.731
+2019,Lowest,1,Away from home,1610,28672,5.615
+2019,Second,2,At home,3672,40472,9.073
+2019,Second,2,Away from home,2187,40472,5.404
+2019,Middle,3,At home,4422,53045,8.336
+2019,Middle,3,Away from home,3084,53045,5.814
+2019,Fourth,4,At home,5198,71173,7.303
+2019,Fourth,4,Away from home,3882,71173,5.454
+2019,Highest,5,At home,7129,121571,5.864
+2019,Highest,5,Away from home,6858,121571,5.641
+2020,Lowest,1,At home,3099,28732,10.786
+2020,Lowest,1,Away from home,1000,28732,3.48
+2020,Second,2,At home,3820,39899,9.574
+2020,Second,2,Away from home,1580,39899,3.96
+2020,Middle,3,At home,4230,51554,8.205
+2020,Middle,3,Away from home,2070,51554,4.015
+2020,Fourth,4,At home,5707,71905,7.937
+2020,Fourth,4,Away from home,2795,71905,3.887
+2020,Highest,5,At home,7813,114839,6.803
+2020,Highest,5,Away from home,4427,114839,3.855
+2021,Lowest,1,At home,3524,30869,11.416
+2021,Lowest,1,Away from home,1351,30869,4.377
+2021,Second,2,At home,4015,43918,9.142
+2021,Second,2,Away from home,1793,43918,4.083
+2021,Middle,3,At home,4754,55914,8.502
+2021,Middle,3,Away from home,2613,55914,4.673
+2021,Fourth,4,At home,5868,75284,7.794
+2021,Fourth,4,Away from home,3539,75284,4.701
+2021,Highest,5,At home,8127,128213,6.339
+2021,Highest,5,Away from home,5846,128213,4.56
+2022,Lowest,1,At home,3624,32618,11.11
+2022,Lowest,1,Away from home,1466,32618,4.494
+2022,Second,2,At home,4310,47665,9.042
+2022,Second,2,Away from home,2229,47665,4.676
+2022,Middle,3,At home,5525,61956,8.918
+2022,Middle,3,Away from home,3030,61956,4.891
+2022,Fourth,4,At home,6529,81961,7.966
+2022,Fourth,4,Away from home,4275,81961,5.216
+2022,Highest,5,At home,8523,140657,6.059
+2022,Highest,5,Away from home,7191,140657,5.112
+2023,Lowest,1,At home,3707,33776,10.975
+2023,Lowest,1,Away from home,1571,33776,4.651
+2023,Second,2,At home,4680,48923,9.566
+2023,Second,2,Away from home,2421,48923,4.949
+2023,Middle,3,At home,5756,65487,8.79
+2023,Middle,3,Away from home,3234,65487,4.938
+2023,Fourth,4,At home,6917,87922,7.867
+2023,Fourth,4,Away from home,4633,87922,5.269
+2023,Highest,5,At home,9198,150093,6.128
+2023,Highest,5,Away from home,7797,150093,5.195
+2024,Lowest,1,At home,3843,35046,10.966
+2024,Lowest,1,Away from home,1655,35046,4.722
+2024,Second,2,At home,4952,50054,9.893
+2024,Second,2,Away from home,2448,50054,4.891
+2024,Middle,3,At home,5820,66900,8.7
+2024,Middle,3,Away from home,3277,66900,4.898
+2024,Fourth,4,At home,7162,89972,7.96
+2024,Fourth,4,Away from home,4682,89972,5.204
+2024,Highest,5,At home,9336,150342,6.21
+2024,Highest,5,Away from home,7652,150342,5.09

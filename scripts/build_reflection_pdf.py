@@ -1,4 +1,4 @@
-"""Render the one-page reflection draft as a polished PDF."""
+"""Render the one-page reflection as a polished PDF."""
 
 from pathlib import Path
 import re
@@ -78,7 +78,7 @@ def decorate(canvas, doc):
     canvas.setStrokeColor(colors.HexColor("#d8dfda"))
     canvas.line(47, 47, width - 47, 47)
     canvas.setFont("Georgia", 8)
-    canvas.drawString(47, 32, "Food Budget Atlas · Reflection draft for student review")
+    canvas.drawString(47, 32, "Food Budget Atlas · Reflection")
     canvas.drawRightString(width - 47, 32, str(doc.page))
     canvas.restoreState()
 

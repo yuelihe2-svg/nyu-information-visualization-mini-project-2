@@ -10,6 +10,16 @@ const fmtMoney = d3.format('$,.0f');
 const fmtPct = d3.format('.1f');
 const tooltip = d3.select('#tooltip');
 let rows = [];
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let animateUpdate = false;
+
+// Interrupt from the displayed position so rapid selections never queue stale moves.
+function motion(selection) {
+  selection.interrupt('selection');
+  return animateUpdate
+    ? selection.transition('selection').duration(420).ease(d3.easeCubicInOut)
+    : selection;
+}
 
 function field(type) {
   return type === 'home' ? 'food_at_home_usd' : type === 'away' ? 'food_away_from_home_usd' : 'food_total_usd';
@@ -25,7 +35,7 @@ function selectedRow() {
 
 function select(next) {
   Object.assign(state, next);
-  render();
+  render(true);
 }
 
 function showTooltip(event, row, type = state.type) {
@@ -47,10 +57,11 @@ function hideTooltip() { tooltip.classed('visible', false); }
 function chartFrame(selector, height, margins) {
   const host = d3.select(selector);
   const width = host.node().clientWidth;
-  host.selectAll('*').remove();
-  const svg = host.append('svg').attr('width', width).attr('height', height).attr('viewBox', `0 0 ${width} ${height}`);
+  const svg = host.selectAll('svg').data([null]).join('svg')
+    .attr('width', width).attr('height', height).attr('viewBox', `0 0 ${width} ${height}`);
   return { svg, width, height, plotWidth: width - margins.left - margins.right, plotHeight: height - margins.top - margins.bottom,
-    plot: svg.append('g').attr('transform', `translate(${margins.left},${margins.top})`) };
+    plot: svg.selectAll('.plot').data([null]).join('g').attr('class', 'plot')
+      .attr('transform', `translate(${margins.left},${margins.top})`) };
 }
 
 function axisStyle(selection) {
@@ -84,27 +95,27 @@ function drawQuintiles() {
   // A zero-based square-root radius keeps circle area proportional to dollars.
   const size = d3.scaleSqrt().domain([0, d3.max(rows, r => r.food_total_usd)]).range([0, 13]);
 
-  plot.append('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
+  plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
-  plot.append('g').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
+  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
   plot.selectAll('.row-guide').data(quintiles).join('line').attr('class', 'row-guide')
     .attr('x1', 0).attr('x2', plotWidth).attr('y1', q => y(q) + y.bandwidth()/2).attr('y2', q => y(q) + y.bandwidth()/2);
   plot.selectAll('.row-label').data(quintiles).join('text').attr('class', 'row-label')
     .attr('x', -13).attr('y', q => y(q) + y.bandwidth()/2 + 4).attr('text-anchor', 'end')
     .classed('selected', q => q === state.quintile).text(q => names[q]);
 
-  const marks = plot.selectAll('.dot-hit').data(current).join('g').attr('class', 'dot-hit')
-    .attr('transform', r => `translate(${x(share(r))},${y(r.income_quintile) + y.bandwidth()/2})`)
+  const marks = plot.selectAll('.dot-hit').data(current, r => r.income_quintile).join('g').attr('class', 'dot-hit')
     .attr('tabindex', 0).attr('role', 'button')
     .attr('aria-label', r => `${names[r.income_quintile]}, ${state.year}: ${fmtPct(share(r))} percent. Select quintile.`)
     .on('click', (event, r) => select({ quintile: r.income_quintile }))
     .on('keydown', (event, r) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ quintile: r.income_quintile }); } })
     .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
-  marks.append('circle').attr('r', 20).attr('fill', 'transparent');
-  marks.append('circle').attr('class', 'data-dot').attr('r', r => size(r.food_total_usd))
+  motion(marks).attr('transform', r => `translate(${x(share(r))},${y(r.income_quintile) + y.bandwidth()/2})`);
+  marks.selectAll('.dot-target').data(r => [r]).join('circle').attr('class', 'dot-target').attr('r', 20).attr('fill', 'transparent');
+  motion(marks.selectAll('.data-dot').data(r => [r]).join('circle').attr('class', 'data-dot')).attr('r', r => size(r.food_total_usd))
     .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : '#b8c9c5')
     .attr('stroke', '#fff').attr('stroke-width', 2);
-  marks.filter(r => r.income_quintile === state.quintile).append('text').attr('class', 'value-label')
+  marks.selectAll('.value-label').data(r => r.income_quintile === state.quintile ? [r] : []).join('text').attr('class', 'value-label')
     .attr('x', r => size(r.food_total_usd) + 9).attr('y', 4).text(r => `${fmtPct(share(r))}%`);
 }
 
@@ -114,9 +125,9 @@ function drawComposition() {
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
   const y = d3.scaleBand().domain(quintiles).range([0, plotHeight]).padding(.38);
-  plot.append('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
+  plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
-  plot.append('g').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
+  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
   plot.selectAll('.row-label').data(quintiles).join('text').attr('class', 'row-label')
     .attr('x', -13).attr('y', q => y(q) + y.bandwidth()/2 + 4).attr('text-anchor', 'end')
     .classed('selected', q => q === state.quintile).text(q => names[q]);
@@ -126,11 +137,9 @@ function drawComposition() {
     const away = share(row, 'away');
     return [{ row, type: 'home', start: 0, value: home }, { row, type: 'away', start: home, value: away }];
   });
-  plot.selectAll('.segment').data(segments).join('rect').attr('class', 'segment')
-    .attr('x', d => x(d.start)).attr('y', d => y(d.row.income_quintile))
-    .attr('width', d => Math.max(1, x(d.value))).attr('height', y.bandwidth()).attr('rx', 2)
+  const bars = plot.selectAll('.segment').data(segments, d => `${d.row.income_quintile}-${d.type}`).join('rect').attr('class', 'segment')
+    .attr('y', d => y(d.row.income_quintile)).attr('height', y.bandwidth()).attr('rx', 2)
     .attr('fill', d => colors[d.type])
-    .attr('opacity', d => (state.type === 'all' || state.type === d.type) ? 1 : .32)
     .attr('stroke', d => d.row.income_quintile === state.quintile && state.type === d.type ? colors.ink : 'none')
     .attr('stroke-width', 2)
     .attr('tabindex', 0).attr('role', 'button')
@@ -138,6 +147,8 @@ function drawComposition() {
     .on('click', (event, d) => select({ quintile: d.row.income_quintile, type: d.type }))
     .on('keydown', (event, d) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ quintile: d.row.income_quintile, type: d.type }); } })
     .on('mouseenter', (event, d) => showTooltip(event, d.row, d.type)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
+  motion(bars).attr('x', d => x(d.start)).attr('width', d => Math.max(1, x(d.value)))
+    .attr('opacity', d => (state.type === 'all' || state.type === d.type) ? 1 : .32);
 }
 
 function drawTrend() {
@@ -147,48 +158,53 @@ function drawTrend() {
   const x = d3.scaleLinear().domain([2015, 2024]).range([0, plotWidth]);
   const y = d3.scaleLinear().domain([0, 20]).range([plotHeight, 0]);
   const years = compact ? [2015, 2018, 2021, 2024] : [2015, 2017, 2019, 2021, 2023, 2024];
-  plot.append('g').attr('class', 'grid').call(d3.axisLeft(y).tickValues([0, 5, 10, 15, 20]).tickSize(-plotWidth).tickFormat(''));
+  plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisLeft(y).tickValues([0, 5, 10, 15, 20]).tickSize(-plotWidth).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
-  plot.append('g').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues(years).tickFormat(d3.format('d'))).call(axisStyle);
-  plot.append('g').call(d3.axisLeft(y).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
-  plot.append('line').attr('class', 'year-marker').attr('x1', x(state.year)).attr('x2', x(state.year)).attr('y1', 0).attr('y2', plotHeight);
+  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues(years).tickFormat(d3.format('d'))).call(axisStyle);
+  plot.selectAll('.y-axis').data([null]).join('g').attr('class', 'y-axis').call(d3.axisLeft(y).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
+  motion(plot.selectAll('.year-marker').data([null]).join('line').attr('class', 'year-marker'))
+    .attr('x1', x(state.year)).attr('x2', x(state.year)).attr('y1', 0).attr('y2', plotHeight);
 
   // Straight segments connect observed annual means without inventing a smooth trajectory.
   const line = d3.line().x(r => x(r.year)).y(r => y(share(r)));
   const groups = quintiles.map(quintile => ({ quintile, data: rows.filter(r => r.income_quintile === quintile).sort((a,b) => a.year-b.year) }));
-  plot.selectAll('.trend-line').data(groups).join('path').attr('class', 'trend-line')
+  motion(plot.selectAll('.trend-line').data(groups, g => g.quintile).join('path').attr('class', 'trend-line'))
     .attr('d', g => line(g.data)).attr('stroke', g => g.quintile === state.quintile ? colors.ink : '#a8b7b5')
     .attr('stroke-width', g => g.quintile === state.quintile ? 3 : 1.8).attr('opacity', g => g.quintile === state.quintile ? 1 : .8);
-  plot.selectAll('.trend-point').data(rows).join('circle').attr('class', 'trend-point')
+  motion(plot.selectAll('.trend-point').data(rows, r => `${r.income_quintile}-${r.year}`).join('circle').attr('class', 'trend-point'))
     .attr('cx', r => x(r.year)).attr('cy', r => y(share(r)))
     .attr('r', r => r.year === state.year && r.income_quintile === state.quintile ? 6 : 3.6)
     .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : '#a8b7b5')
     .attr('stroke', '#fff').attr('stroke-width', 1.4);
   // An invisible larger hit target makes each year usable by mouse and keyboard.
-  plot.selectAll('.trend-hit').data(rows.filter(r => r.income_quintile === state.quintile)).join('circle').attr('class', 'trend-hit')
-    .attr('cx', r => x(r.year)).attr('cy', r => y(share(r))).attr('r', compact ? 10 : 11)
+  const targets = plot.selectAll('.trend-hit').data(rows.filter(r => r.income_quintile === state.quintile), r => r.year).join('circle').attr('class', 'trend-hit')
+    .attr('r', compact ? 10 : 11)
     .attr('fill', 'transparent').attr('tabindex', 0).attr('role', 'button')
     .attr('aria-label', r => `${names[r.income_quintile]}, ${r.year}: ${fmtPct(share(r))} percent. Select year.`)
     .on('click', (event, r) => select({ year: r.year }))
     .on('keydown', (event, r) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ year: r.year }); } })
     .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
+  motion(targets).attr('cx', r => x(r.year)).attr('cy', r => y(share(r)));
   if (!compact) {
     const endpoints = groups.map(g => ({ ...g, originalY: y(share(g.data.at(-1))) }))
       .sort((a, b) => a.originalY - b.originalY);
     endpoints.forEach((g, i) => { g.labelY = i ? Math.max(g.originalY, endpoints[i - 1].labelY + 16) : g.originalY; });
     const overflow = Math.max(0, endpoints.at(-1).labelY - plotHeight);
     endpoints.forEach(g => { g.labelY -= overflow; });
-    plot.selectAll('.end-connector').data(endpoints).join('line').attr('class', 'end-connector')
+    motion(plot.selectAll('.end-connector').data(endpoints, g => g.quintile).join('line').attr('class', 'end-connector'))
       .attr('x1', plotWidth + 2).attr('x2', plotWidth + 8)
       .attr('y1', g => g.originalY).attr('y2', g => g.labelY)
       .attr('stroke', '#8da09c').attr('stroke-width', 1);
-    plot.selectAll('.end-label').data(endpoints).join('text').attr('class', 'end-label')
-      .attr('x', plotWidth + 10).attr('y', g => g.labelY + 4)
+    const labels = plot.selectAll('.end-label').data(endpoints, g => g.quintile).join('text').attr('class', 'end-label')
       .classed('selected', g => g.quintile === state.quintile).text(g => g.quintile);
+    motion(labels).attr('x', plotWidth + 10).attr('y', g => g.labelY + 4);
+  } else {
+    plot.selectAll('.end-connector, .end-label').remove();
   }
 }
 
-function render() {
+function render(animate = false) {
+  animateUpdate = animate && !reducedMotion.matches;
   hideTooltip();
   drawSummary();
   drawQuintiles();
@@ -210,6 +226,7 @@ async function init() {
   d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all' }));
   new ResizeObserver(() => render()).observe(d3.select('.dashboard-grid').node());
   render();
+  reducedMotion.addEventListener('change', () => render());
 }
 
 init().catch(error => {

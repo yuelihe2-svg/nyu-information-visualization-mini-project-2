@@ -16,6 +16,7 @@ The source CSV is committed, so the dashboard does **not** need a BLS API reques
 - **View 2 — Break down:** select an at-home or away-from-home segment to focus both its quintile and category.
 - **View 3 — Follow time:** select a dark point on the focused quintile's line to change the year. The year dropdown is a second way to change years.
 - Any selection updates the summary and the other views. `Reset view` returns to all food, the lowest income quintile, and 2024. Hover for details. SVG marks and controls support keyboard selection.
+- Chart marks move between selections over 420 ms. Rapid selections interrupt the current transition; system reduced-motion preferences switch to immediate updates.
 
 ## Data and interpretation
 
@@ -37,6 +38,8 @@ The proposal and reflection are drafts for the student's own design review, as r
 ## Verification
 
 Run `npm run build` for the production build. With `npm run dev -- --port 4173` running, `node scripts/check_dashboard.mjs` checks selections originating in all three views, reset behavior, browser errors, and mobile horizontal overflow. The script uses a local Microsoft Edge installation through Playwright; the dashboard itself has no Edge dependency.
+
+`node scripts/check_transitions.mjs` checks intermediate animation geometry, persistent marks, rapid selections, reduced-motion behavior, and keyboard focus retention.
 
 ## Implementation
 

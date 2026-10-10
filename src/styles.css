@@ -47,11 +47,11 @@ button:focus-visible, select:focus-visible, svg [tabindex]:focus-visible { outli
 .row-label, .end-label { fill: #647a74; font-family: 'DM Sans', Arial, sans-serif; font-size: 11px; }
 .row-label.selected, .end-label.selected { fill: #17333a; font-weight: 700; }
 .row-guide { stroke: #edf0ec; stroke-width: 1; }
-.data-dot, .segment, .trend-hit { cursor: pointer; transition: opacity .18s ease, fill .18s ease, r .18s ease; }
+.data-dot, .segment, .trend-hit { cursor: pointer; }
 .dot-hit:hover .data-dot { fill: #c66f3e; }
 .segment:hover { opacity: .75; }
 .value-label { font-size: 11px; fill: #17333a; font-weight: 700; }
-.trend-line { fill: none; pointer-events: none; transition: stroke .18s, stroke-width .18s, opacity .18s; }
+.trend-line { fill: none; pointer-events: none; }
 .year-marker { stroke: #df8751; stroke-width: 1; stroke-dasharray: 3 4; }
 .legend { display: flex; gap: 17px; border-top: 1px solid #edf0ec; padding-top: 11px; font-size: 10px; color: #536a64; }
 .legend span { display: flex; align-items: center; gap: 7px; }

@@ -26,6 +26,7 @@ The main measure is `food spending / total expenditures × 100`. Home and away s
 
 ## Coursework deliverables
 
+- [Week 5 proposal PDF](output/pdf/week5-proposal.pdf) and [optional supporting-data package](output/Week5_Submission.zip): dataset, three research questions, three layout sketches, and channel justification table. Rebuild with `scripts/build_week5_package.py` using Python with ReportLab and Windows Georgia fonts.
 - [Proposal, research questions, channel table, and three layout sketches](docs/proposal.md)
 - [Usability protocol and structured report template](docs/usability-testing.md) — the required two-peer sessions remain to be conducted honestly.
 - [One-page reflection draft](docs/reflection.md)

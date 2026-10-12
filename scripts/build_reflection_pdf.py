@@ -36,7 +36,7 @@ def markup(text: str) -> str:
 
 styles = {
     "title": ParagraphStyle("title", fontName="Georgia", fontSize=20, leading=24, textColor=navy, spaceAfter=16),
-    "body": ParagraphStyle("body", fontName="Georgia", fontSize=9.2, leading=13.5, textColor=navy, spaceAfter=10, alignment=TA_LEFT),
+    "body": ParagraphStyle("body", fontName="Georgia", fontSize=9.2, leading=13, textColor=navy, spaceAfter=8, alignment=TA_LEFT),
     "note": ParagraphStyle("note", fontName="Georgia", fontSize=8.6, leading=12.5, textColor=muted, spaceBefore=3, spaceAfter=10),
     "table_heading": ParagraphStyle("table_heading", fontName="Georgia-Bold", fontSize=7.3, leading=9, textColor=colors.white),
     "table_cell": ParagraphStyle("table_cell", fontName="Georgia", fontSize=7.1, leading=9, textColor=navy),
@@ -54,15 +54,15 @@ cells = [[cell.strip() for cell in line.strip("|").split("|")] for line in lines
 cells = [cells[0]] + cells[2:]  # skip Markdown separator row
 data = [[Paragraph(markup(cell), styles["table_heading"] if row == 0 else styles["table_cell"])
          for cell in values] for row, values in enumerate(cells)]
-table = Table(data, colWidths=[105, 77, 144, 192], repeatRows=1, hAlign="LEFT")
+table = Table(data, colWidths=[79, 63, 65, 82, 75, 154], repeatRows=1, hAlign="LEFT")
 table.setStyle(TableStyle([
     ("BACKGROUND", (0, 0), (-1, 0), navy),
     ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f7f4ee")]),
     ("VALIGN", (0, 0), (-1, -1), "TOP"),
     ("LEFTPADDING", (0, 0), (-1, -1), 5),
     ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-    ("TOPPADDING", (0, 0), (-1, -1), 4),
-    ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ("TOPPADDING", (0, 0), (-1, -1), 3),
+    ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
     ("LINEBELOW", (0, 0), (-1, 0), 0.4, navy),
 ]))
 story.append(table)

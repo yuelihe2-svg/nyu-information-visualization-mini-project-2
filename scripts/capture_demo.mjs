@@ -15,6 +15,8 @@ await page.addStyleTag({ content: `
 ` });
 
 async function capture(filename, title, detail) {
+  // D3 uses JavaScript transitions, which screenshot animations: 'disabled' does not stop.
+  await page.waitForFunction(() => ![...document.querySelectorAll('svg *')].some(node => node.__transition));
   await page.mouse.move(1, 1);
   await page.evaluate(({ title, detail }) => {
     document.querySelector('.demo-banner')?.remove();

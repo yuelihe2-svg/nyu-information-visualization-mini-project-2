@@ -4,7 +4,7 @@ const browser = await chromium.launch({ headless: true, executablePath: 'C:/Prog
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 1 });
 const errors = [];
 page.on('pageerror', error => errors.push(error.message));
-await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
+await page.goto(process.env.DASHBOARD_URL || 'http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
 await page.locator('#share-value').waitFor();
 const initial = await page.locator('#share-value').innerText();
 if (initial !== '15.7') throw new Error(`Unexpected initial share: ${initial}`);

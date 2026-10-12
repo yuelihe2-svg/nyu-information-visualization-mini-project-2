@@ -14,10 +14,10 @@ Finally, the three views share a single selection. Clicking a dot selects a quin
 
 ## Channel justification table — current implementation
 
-| Data dimension | Data type | Mark and channel | Reason |
-| --- | --- | --- | --- |
-| Food share of expenditures | Quantitative | Dot and bar horizontal position; line vertical position | The primary measure uses the most accurate channel and a common scale. |
-| Income quintile | Ordinal | Ordered dot/bar rows; direct line labels | The rank is preserved without implying unrelated color categories. |
-| Calendar year | Temporal ordinal | Line horizontal position | Left-to-right position conveys chronological order. |
-| Food at home / away | Nominal | Stacked-bar hue and left/right position | Two consistent hues identify categories; position remains readable in grayscale. |
-| Annual all-food dollars | Quantitative | Dot area | A secondary magnitude; zero-based square-root radius makes area proportional to dollars. |
+| Data variable | Data type | Mark | Channel | Principle | Justification |
+| --- | --- | --- | --- | --- | --- |
+| Food share of expenditures | Quantitative | Dot; bar segment; line point | X-position / length; Y-position | Effectiveness | Common scales support comparison; away segments use length from a shifting baseline. |
+| Income quintile | Ordinal | Dot / bar row; line | Ordered Y-position; direct labels | Expressiveness | Row order preserves income rank; labels identify lines. |
+| Calendar year | Temporal ordinal | Line point | X-position | Convention | Left-to-right position conveys chronology. |
+| Food at home / away | Nominal | Bar segment | Hue; segment order | Expressiveness | Two hues identify categories; order also works in grayscale. |
+| Annual all-food dollars | Quantitative | Dot | Area | Expressiveness | Zero-based square-root radius makes area proportional to dollars. |

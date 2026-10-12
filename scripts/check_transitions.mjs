@@ -6,7 +6,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
+  await page.goto(process.env.DASHBOARD_URL || 'http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
   const initialPosition = await page.locator('.dot-hit').first().getAttribute('transform');
   const sample = async (action, selectors) => page.evaluate(async ({ action, selectors }) => {
     const nodes = selectors.map(([selector]) => document.querySelector(selector));

@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import foodDataUrl from '../data/food_spending.csv?url';
 import './styles.css';
 
 // One shared state drives every view. Each chart changes state through select().
@@ -213,7 +214,7 @@ function render(animate = false) {
 }
 
 async function init() {
-  rows = await d3.csv('/data/food_spending.csv', d => ({
+  rows = await d3.csv(foodDataUrl, d => ({
     year: +d.year, income_quintile: d.income_quintile, quintile_rank: +d.quintile_rank,
     total_expenditures_usd: +d.total_expenditures_usd, food_total_usd: +d.food_total_usd,
     food_at_home_usd: +d.food_at_home_usd, food_away_from_home_usd: +d.food_away_from_home_usd,

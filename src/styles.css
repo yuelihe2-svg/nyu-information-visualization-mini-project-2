@@ -96,7 +96,7 @@ summary:focus-visible, .table-scroll:focus-visible { outline: 2px solid #b05b32;
   .hero { padding: 0 0 16px; }
   h1 { font-size: 36px; }
   .summary { min-height: 120px; margin-bottom: 14px; }
-  .dashboard-grid { display: block; }
+  .dashboard-grid { display: none; }
   .card, .summary, .table-scroll { break-inside: avoid; }
   .card { margin-bottom: 14px; }
   .chart-note { display: block; }

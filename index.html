@@ -60,22 +60,24 @@
         <div class="dashboard-grid">
           <section class="card card-main" aria-labelledby="quintile-title">
             <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = all-food dollars</span></div>
-            <p class="card-description">Food spending as a percent of total annual expenditures. Select a quintile.</p>
+            <p class="card-description" id="compare-context">All food · 2024 · share of total expenditures</p>
             <div id="quintile-chart" class="chart" role="group" aria-label="Dot plot of the food budget share for five income quintiles"></div>
-            <div class="chart-footnote">Income quintiles are ranked by income before taxes. Dollar values are not inflation adjusted.</div>
+            <div class="chart-footnote">Click a dot to select an income quintile. Dot area always shows annual <strong>all-food dollars</strong>, even when filtering by category. Income rank uses income before taxes.</div>
           </section>
 
           <section class="card card-composition" aria-labelledby="composition-title">
             <div class="card-header"><div><span class="view-number">02 / BREAK DOWN</span><h2 id="composition-title">Home or away?</h2></div></div>
-            <p class="card-description">How each food category contributes to the total budget share. Select a segment.</p>
+            <p class="card-description" id="composition-context">2024 · both categories shown · selected: Lowest 20%</p>
             <div id="composition-chart" class="chart" role="group" aria-label="Stacked bar chart showing at-home and away-from-home food spending by income quintile"></div>
             <div class="legend"><span><i class="swatch home"></i> At home</span><span><i class="swatch away"></i> Away from home</span></div>
+            <p class="interaction-hint">Click a segment to select its category and quintile. Both lengths use total expenditures as the denominator.</p>
           </section>
 
           <section class="card card-trend" aria-labelledby="trend-title">
             <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div><span class="chart-note">Click a dark point to choose a year</span></div>
-            <p class="card-description">Annual food spending as a percent of annual expenditures, 2015–2024.</p>
+            <p class="card-description" id="trend-context">All food · dark line: Lowest 20% · selected year: 2024</p>
             <div id="trend-chart" class="chart" role="group" aria-label="Line chart showing food budget share from 2015 to 2024 for five income quintiles"></div>
+            <div class="chart-footnote">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
           </section>
         </div>
 
@@ -87,6 +89,7 @@
 
       <footer><span>NYU Tandon · Information Visualization Mini-Project 2</span><span>Source: U.S. Bureau of Labor Statistics, Consumer Expenditure Surveys</span></footer>
       <div id="tooltip" class="tooltip" role="status" aria-live="polite"></div>
+      <div id="selection-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

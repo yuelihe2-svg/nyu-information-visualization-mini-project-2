@@ -1,0 +1,32 @@
+FOOD BUDGET ATLAS - CLASSROOM DEMONSTRATION NOTES
+
+PREPARE
+Extract the prototype ZIP. Open Food_Budget_Atlas.html. Click Reset view.
+Use a desktop browser so the three charts and direct line labels are easy to see.
+Suggested practice length: about two minutes. This is a rehearsal aid, not an instructor-specified time limit.
+
+INTRODUCTION
+"My question is how food's share of total expenditures differs across U.S. income quintiles. The BLS data cover 2015 through 2024. These are averages per consumer unit, not individual household records."
+
+1. COMPARE
+"The first chart compares budget shares. In 2024, the lowest-income group spent 15.7% of total expenditures on food, compared with 11.3% for the highest-income group. The circles also show all-food dollars through their area."
+Action: select the Highest dot. Point to the updated summary, highlighted breakdown row and dark trend line.
+
+2. BREAK DOWN
+"The second chart splits food into at-home and away-from-home spending. Both categories use total expenditures as their denominator."
+Action: click the orange Middle segment. Show that the category control and the other charts now use away-from-home shares.
+
+3. FOLLOW TIME
+"The third chart follows the selected category across time. The dark line is the selected income group; the other lines provide context."
+Action: click the dark 2020 point. The Middle group's away-from-home share becomes 4.0%, or $2,070. Point to the year marker and both updated comparison charts. Click Reset view.
+
+LIMITATION
+"This describes expenditure patterns. It does not prove why a pattern changed, and dollar amounts are not adjusted for inflation."
+
+FEEDBACK
+Invite the peer to try the dashboard without demonstrating every step again.
+Ask: "Which interaction was hardest to discover?" and "What did you think the percentage was a share of?"
+Record the person's alias/name (with consent), the exact issue, and the change you plan to make.
+
+OPTIONAL FORMAL TEST SESSION FOR THE FINAL REPORT
+Use docs/usability-testing.md in the source folder. Give each of two peers the same three tasks and observe them individually. Do not replace observed behavior with the expected answers above. Capture the relevant interface before making a feedback-driven change, then capture the revision.

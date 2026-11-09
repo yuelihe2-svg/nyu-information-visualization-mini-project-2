@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="528" height="433" preserveAspectRatio="xMinYMin meet" viewBox="0 0 528 433" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="528" height="433"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-433)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="1" y="396" width="526" height="35" rx="4" ry="4" style="stroke: rgb(9%,20%,22%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<text x="14" y="417" style="font-family: Helvetica-Bold; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,834) scale(1,-1)">2024 / ALL FOOD / LOWEST INCOME QUINTILE</text>
+			<text x="14" y="403" style="font-family: Helvetica; font-size: 8px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,806) scale(1,-1)">15.7% of total expenditures    |    $5,498 annual food spending</text>
+			<rect x="1" y="205" width="254" height="180" rx="4" ry="4" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="273" y="205" width="254" height="180" rx="4" ry="4" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="12" y="368" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,736) scale(1,-1)">01  DOT PLOT / COMPARE</text>
+			<text x="12" y="353" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,706) scale(1,-1)">Food share by ordered income quintile</text>
+			<text x="284" y="368" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,736) scale(1,-1)">02  STACKED BARS / BREAK DOWN</text>
+			<text x="284" y="353" style="font-family: Helvetica; font-size: 7.3px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,706) scale(1,-1)">At-home + away shares of total expenditures</text>
+			<path d="M 65,235 L 65,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="60.30375" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">0%</text>
+			<path d="M 107.5,235 L 107.5,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="102.80375" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">5%</text>
+			<path d="M 150,235 L 150,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="143.49675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">10%</text>
+			<path d="M 192.5,235 L 192.5,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="185.99675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">15%</text>
+			<path d="M 235,235 L 235,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="228.49675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">20%</text>
+			<path d="M 337,235 L 337,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="332.30375" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">0%</text>
+			<path d="M 379.5,235 L 379.5,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="374.80375" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">5%</text>
+			<path d="M 422,235 L 422,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="415.49675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">10%</text>
+			<path d="M 464.5,235 L 464.5,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="457.99675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">15%</text>
+			<path d="M 507,235 L 507,342 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="500.49675" y="223" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,446) scale(1,-1)">20%</text>
+			<text x="9" y="330" style="font-family: Helvetica-Bold; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,660) scale(1,-1)">Lowest</text>
+			<text x="281" y="330" style="font-family: Helvetica-Bold; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,660) scale(1,-1)">Lowest</text>
+			<circle cx="198.34760029675283" cy="333" r="3.981319642474326" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<rect x="337" y="328" width="93.20749871597332" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<rect x="430.2074987159733" y="328" width="40.140101580779515" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="9" y="308" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,616) scale(1,-1)">Second</text>
+			<text x="281" y="308" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,616) scale(1,-1)">Second</text>
+			<circle cx="190.6642825748192" cy="311" r="4.618921046193796" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(65%,71%,70%); fill-rule: evenodd;"/>
+			<rect x="337" y="306" width="84.0931793662844" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<rect x="421.0931793662844" y="306" width="41.571103208534794" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="9" y="286" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,572) scale(1,-1)">Middle</text>
+			<text x="281" y="286" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,572) scale(1,-1)">Middle</text>
+			<circle cx="180.58221225710014" cy="289" r="5.121224047977997" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(65%,71%,70%); fill-rule: evenodd;"/>
+			<rect x="337" y="284" width="73.94618834080717" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<rect x="410.94618834080717" y="284" width="41.63602391629297" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="9" y="264" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,528) scale(1,-1)">Fourth</text>
+			<text x="281" y="264" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,528) scale(1,-1)">Fourth</text>
+			<circle cx="176.904259102832" cy="267" r="5.8437578462888595" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(65%,71%,70%); fill-rule: evenodd;"/>
+			<rect x="337" y="262" width="67.66216156137466" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<rect x="404.66216156137466" y="262" width="44.23265015782687" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="9" y="242" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,484) scale(1,-1)">Highest</text>
+			<text x="281" y="242" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,484) scale(1,-1)">Highest</text>
+			<circle cx="161.05200143672425" cy="245" r="6.998558335892445" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(65%,71%,70%); fill-rule: evenodd;"/>
+			<rect x="337" y="240" width="52.78365327054314" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<rect x="389.78365327054314" y="240" width="43.26269439012384" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="12" y="211" style="font-family: Helvetica; font-size: 7px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,422) scale(1,-1)">Dot area = annual all-food dollars</text>
+			<rect x="285" y="210" width="6" height="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<text x="295" y="210" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,420) scale(1,-1)">At home</text>
+			<rect x="353" y="210" width="6" height="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(87%,52%,31%); fill-rule: evenodd;"/>
+			<text x="363" y="210" style="font-family: Helvetica; font-size: 7px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,420) scale(1,-1)">Away from home</text>
+			<path d="M 257,304 L 271,304 Z" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="271 304, 266 307, 266 301" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<text x="226" y="316" style="font-family: Helvetica; font-size: 7px;fill: rgb(12%,42%,46%); stroke:none;" transform="translate(0,632) scale(1,-1)">Select group</text>
+			<path d="M 128,204 L 128,171 Z" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="128 171, 125 176, 131 176" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<text x="136" y="186" style="font-family: Helvetica; font-size: 7px;fill: rgb(12%,42%,46%); stroke:none;" transform="translate(0,372) scale(1,-1)">Select quintile</text>
+			<path d="M 401,204 L 401,171 Z" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="401 171, 398 176, 404 176" style="stroke: rgb(12%,42%,46%); stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,42%,46%); fill-rule: evenodd;"/>
+			<text x="410" y="185" style="font-family: Helvetica; font-size: 7px;fill: rgb(12%,42%,46%); stroke:none;" transform="translate(0,370) scale(1,-1)">Select category + quintile</text>
+			<rect x="1" y="1" width="526" height="169" rx="4" ry="4" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="12" y="154" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,308) scale(1,-1)">03  LINE CHART / FOLLOW TIME</text>
+			<text x="12" y="141" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,282) scale(1,-1)">2015-2024; dark line = selected group; click a dark point to choose a year</text>
+			<path d="M 34,28 L 472,28 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="19.6075" y="26.0" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,52) scale(1,-1)">0%</text>
+			<path d="M 34,53 L 472,53 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="19.6075" y="51.0" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,102) scale(1,-1)">5%</text>
+			<path d="M 34,78 L 472,78 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="15.993500000000001" y="76.0" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,152) scale(1,-1)">10%</text>
+			<path d="M 34,103 L 472,103 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="15.993500000000001" y="101.0" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,202) scale(1,-1)">15%</text>
+			<path d="M 34,128 L 472,128 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="15.993500000000001" y="126.0" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,252) scale(1,-1)">20%</text>
+			<text x="26.772" y="17" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,34) scale(1,-1)">2015</text>
+			<text x="124.10533333333332" y="17" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,34) scale(1,-1)">2017</text>
+			<text x="221.43866666666665" y="17" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,34) scale(1,-1)">2019</text>
+			<text x="318.772" y="17" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,34) scale(1,-1)">2021</text>
+			<text x="464.772" y="17" style="font-family: Helvetica; font-size: 6.5px;fill: rgb(32%,41%,39%); stroke:none;" transform="translate(0,34) scale(1,-1)">2024</text>
+			<polyline points="34 83.87831, 82.66667 83.7516, 131.3333 83.8989, 180 84.18744, 228.6667 85.52605, 277.3333 81.292, 326 82.49135, 374.6667 83.85573, 423.3333 84.61823, 472 84.50118" style="stroke: rgb(65%,71%,70%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polyline points="34 92.11867, 82.66667 92.98228, 131.3333 92.76688, 180 95.64693, 228.6667 91.78823, 277.3333 87.12663, 326 90.47675, 374.6667 93.9094, 423.3333 93.68322, 472 93.82603" style="stroke: rgb(65%,71%,70%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polyline points="34 91.15342, 82.66667 93.29037, 131.3333 97.95245, 180 95.25434, 228.6667 98.74182, 277.3333 89.10098, 326 93.87796, 374.6667 97.04093, 423.3333 96.63194, 472 95.98954" style="stroke: rgb(65%,71%,70%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polyline points="34 99.61395, 82.66667 95.69105, 131.3333 100.1501, 180 101.0584, 228.6667 100.3834, 277.3333 95.65834, 326 94.12323, 374.6667 96.59331, 423.3333 100.563, 472 101.9202" style="stroke: rgb(65%,71%,70%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polyline points="34 104.9718, 82.66667 104.816, 131.3333 106.2121, 180 105.8249, 228.6667 104.7299, 277.3333 99.33162, 326 106.9627, 374.6667 106.0244, 423.3333 106.1324, 472 106.4398" style="stroke: rgb(9%,20%,22%); stroke-linecap: butt; stroke-width: 1.8; fill: None; fill-rule: evenodd;"/>
+			<circle cx="34.0" cy="104.9718022067838" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="82.66666666666666" cy="104.81597581350943" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="131.33333333333331" cy="106.21207579076828" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="180.0" cy="105.82491761051556" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="228.66666666666666" cy="104.72991071428571" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="277.33333333333337" cy="99.33161631630239" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="326.0" cy="106.96271340179469" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="374.6666666666667" cy="106.02440370347661" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="423.3333333333333" cy="106.13240170535292" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<circle cx="472.0" cy="106.43976488044284" r="2.1" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 0.4; fill: rgb(9%,20%,22%); fill-rule: evenodd;"/>
+			<path d="M 474,84.501177 L 479,84.501177 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="481" y="82.50117731572016" style="font-family: Helvetica; font-size: 6.8px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,165) scale(1,-1)">Highest</text>
+			<path d="M 474,93.826035 L 479,93.826035 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="481" y="91.82603476637175" style="font-family: Helvetica; font-size: 6.8px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,183) scale(1,-1)">Fourth</text>
+			<path d="M 474,95.989537 L 479,102.826035 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="481" y="100.82603476637175" style="font-family: Helvetica; font-size: 6.8px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,201) scale(1,-1)">Middle</text>
+			<path d="M 474,101.920166 L 479,111.826035 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="481" y="109.82603476637175" style="font-family: Helvetica; font-size: 6.8px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,219) scale(1,-1)">Second</text>
+			<path d="M 474,106.439765 L 479,120.826035 Z" style="stroke: rgb(80%,84%,81%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="481" y="118.82603476637175" style="font-family: Helvetica-Bold; font-size: 6.8px;fill: rgb(9%,20%,22%); stroke:none;" transform="translate(0,237) scale(1,-1)">Lowest</text>
+			<path d="M 472,28 L 472,128 Z" style="stroke: rgb(87%,52%,31%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="12" y="5" style="font-family: Helvetica; font-size: 7px;fill: rgb(12%,42%,46%); stroke:none;" transform="translate(0,10) scale(1,-1)">Choosing a year updates both upper charts; Reset restores 2024 / Lowest / All food.</text>
+		</g>
+	</g>
+</svg>

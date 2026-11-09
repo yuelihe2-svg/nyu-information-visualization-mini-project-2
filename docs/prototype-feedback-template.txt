@@ -1,0 +1,18 @@
+CLASSROOM PEER FEEDBACK LOG
+Food Budget Atlas | Yueli He | Information Visualization
+
+TEMPLATE ONLY - complete after the actual session. Do not submit blank fields.
+Keep the completed log within half a page (aim for 120-150 words).
+
+Session date: [actual date]
+Feedback from: [names or aliases, and peer role]
+
+Issue 1 / observation: [what the peer actually said or did]
+Planned change: [specific change and why it addresses this issue]
+
+Issue 2 / observation, if any: [what the peer actually said or did]
+Planned change: [specific change, or reason to retain the current design]
+
+Priority before final submission: [the most important improvement]
+
+Delete these instructions before submitting the completed log. Do not infer a peer opinion from an automated test or invent a quotation.

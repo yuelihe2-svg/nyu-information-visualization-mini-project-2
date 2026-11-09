@@ -2,6 +2,12 @@
 
 An interactive English-language dashboard for NYU Tandon's Information Visualization Mini-Project 2. It compares the share of annual U.S. consumer-unit expenditures spent on food across five income quintiles, separates food at home from food away from home, and follows the pattern from 2015 through 2024.
 
+## Working prototype - November 8, 2026
+
+Download and extract [Working_Prototype_Package.zip](output/Working_Prototype_Package.zip), then double-click `Food_Budget_Atlas.html`. It runs offline without installation. The bundle includes a [four-page brief with a dedicated cover](output/pdf/working-prototype-brief.pdf), a [detailed chart layout](docs/prototype-layout.svg), two annotated screenshots, the source and data, and English classroom preparation notes. The brief responds to the instructor's proposal feedback about vague sketches and a missing cover.
+
+The classroom demonstration and genuine feedback log remain to be completed. See [prototype requirements and evidence](docs/working-prototype.md). A blank feedback template is provided as preparation, not as completed evidence. The private repository needs grader access if a repository link is submitted; the ZIP includes the source as an access fallback.
+
 ## Run locally
 
 1. Install [Node.js](https://nodejs.org/) 20.19+.
@@ -9,6 +15,8 @@ An interactive English-language dashboard for NYU Tandon's Information Visualiza
 3. Open the localhost URL printed by Vite. If port 5173 is available, this is usually `http://127.0.0.1:5173/`.
 
 The source CSV is committed, so the dashboard does **not** need a BLS API request at runtime. `npm run build` creates a production build in `dist/`; `npm run preview` serves that build locally. No account or API key is needed. If npm's system cache is unwritable on Windows, use `npm install --cache .npm-cache`.
+
+`npm run build:portable` generates the self-contained `output/prototype/Food_Budget_Atlas.html`. The portable build uses system font fallbacks and embeds the data, styles and D3 code. `python scripts/build_prototype_package.py` creates the PDF and ZIP after screenshots and verification have been generated; PDF generation needs ReportLab and the Windows Georgia fonts.
 
 ## Explore
 
@@ -41,6 +49,8 @@ The proposal and reflection are drafts for the student's own design review, as r
 Run `npm run build` for the production build. With `npm run dev -- --port 4173` running, `node scripts/check_dashboard.mjs` checks selections originating in all three views, reset behavior, browser errors, and mobile horizontal overflow. The script uses a local Microsoft Edge installation through Playwright; the dashboard itself has no Edge dependency.
 
 `node scripts/check_transitions.mjs` checks intermediate animation geometry, persistent marks, rapid selections, reduced-motion behavior, and keyboard focus retention.
+
+`python scripts/check_data.py` validates the CSVs against the frozen BLS API response. After building the portable file, `node scripts/check_prototype.mjs` checks offline startup, all 150 selection combinations, keyboard details and responsive widths. Set `DASHBOARD_URL` to a preview URL or a portable `file:///...` URL to run the other two check scripts against a specific build. `node scripts/capture_prototype.mjs` generates the two current prototype screenshots.
 
 ## Implementation
 

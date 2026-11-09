@@ -44,13 +44,18 @@ function showTooltip(event, row, type = state.type) {
   const category = { all: 'All food', home: 'Food at home', away: 'Food away from home' }[type];
   tooltip.html(`<strong>${title}</strong><span>${category}: ${fmtPct(share(row, type))}% of expenditures</span><span>Annual spending: ${fmtMoney(row[field(type)])}</span><span>Total expenditures: ${fmtMoney(row.total_expenditures_usd)}</span>`)
     .classed('visible', true);
-  moveTooltip(event);
+  if (event.type === 'focus') {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    moveTooltip({ clientX: bounds.right, clientY: bounds.bottom });
+  } else moveTooltip(event);
 }
 
 function moveTooltip(event) {
   const width = tooltip.node().offsetWidth;
   const left = Math.min(event.clientX + 16, window.innerWidth - width - 12);
-  tooltip.style('left', `${Math.max(12, left)}px`).style('top', `${Math.max(12, event.clientY + 16)}px`);
+  const height = tooltip.node().offsetHeight;
+  const top = Math.min(event.clientY + 16, window.innerHeight - height - 12);
+  tooltip.style('left', `${Math.max(12, left)}px`).style('top', `${Math.max(12, top)}px`);
 }
 
 function hideTooltip() { tooltip.classed('visible', false); }
@@ -85,6 +90,11 @@ function drawSummary() {
   d3.selectAll('#type-control button').classed('active', function () { return this.dataset.type === state.type; })
     .attr('aria-pressed', function () { return this.dataset.type === state.type; });
   d3.select('#year-select').property('value', state.year);
+  const category = { all: 'All food', home: 'At home', away: 'Away from home' }[state.type];
+  d3.select('#compare-context').text(`${category} · ${state.year} · share of total expenditures`);
+  d3.select('#composition-context').text(`${state.year} · both categories shown · selected: ${names[state.quintile]}`);
+  d3.select('#trend-context').text(`${category} · dark line: ${names[state.quintile]} · selected year: ${state.year}`);
+  d3.select('#selection-announcement').text(`${names[state.quintile]}, ${state.year}. ${category}: ${fmtPct(share(row))} percent of total expenditures, ${fmtMoney(row[field(state.type)])}. All three charts updated.`);
 }
 
 function drawQuintiles() {
@@ -107,10 +117,12 @@ function drawQuintiles() {
 
   const marks = plot.selectAll('.dot-hit').data(current, r => r.income_quintile).join('g').attr('class', 'dot-hit')
     .attr('tabindex', 0).attr('role', 'button')
+    .attr('aria-pressed', r => r.income_quintile === state.quintile)
     .attr('aria-label', r => `${names[r.income_quintile]}, ${state.year}: ${fmtPct(share(r))} percent. Select quintile.`)
     .on('click', (event, r) => select({ quintile: r.income_quintile }))
     .on('keydown', (event, r) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ quintile: r.income_quintile }); } })
-    .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
+    .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip)
+    .on('focus', (event, r) => showTooltip(event, r)).on('blur', hideTooltip);
   motion(marks).attr('transform', r => `translate(${x(share(r))},${y(r.income_quintile) + y.bandwidth()/2})`);
   marks.selectAll('.dot-target').data(r => [r]).join('circle').attr('class', 'dot-target').attr('r', 20).attr('fill', 'transparent');
   motion(marks.selectAll('.data-dot').data(r => [r]).join('circle').attr('class', 'data-dot')).attr('r', r => size(r.food_total_usd))
@@ -144,10 +156,12 @@ function drawComposition() {
     .attr('stroke', d => d.row.income_quintile === state.quintile && state.type === d.type ? colors.ink : 'none')
     .attr('stroke-width', 2)
     .attr('tabindex', 0).attr('role', 'button')
+    .attr('aria-pressed', d => d.row.income_quintile === state.quintile && state.type === d.type)
     .attr('aria-label', d => `${names[d.row.income_quintile]}, ${d.type === 'home' ? 'at home' : 'away from home'}: ${fmtPct(d.value)} percent. Select category and quintile.`)
     .on('click', (event, d) => select({ quintile: d.row.income_quintile, type: d.type }))
     .on('keydown', (event, d) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ quintile: d.row.income_quintile, type: d.type }); } })
-    .on('mouseenter', (event, d) => showTooltip(event, d.row, d.type)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
+    .on('mouseenter', (event, d) => showTooltip(event, d.row, d.type)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip)
+    .on('focus', (event, d) => showTooltip(event, d.row, d.type)).on('blur', hideTooltip);
   motion(bars).attr('x', d => x(d.start)).attr('width', d => Math.max(1, x(d.value)))
     .attr('opacity', d => (state.type === 'all' || state.type === d.type) ? 1 : .32);
 }
@@ -181,10 +195,12 @@ function drawTrend() {
   const targets = plot.selectAll('.trend-hit').data(rows.filter(r => r.income_quintile === state.quintile), r => r.year).join('circle').attr('class', 'trend-hit')
     .attr('r', compact ? 10 : 11)
     .attr('fill', 'transparent').attr('tabindex', 0).attr('role', 'button')
+    .attr('aria-pressed', r => r.year === state.year)
     .attr('aria-label', r => `${names[r.income_quintile]}, ${r.year}: ${fmtPct(share(r))} percent. Select year.`)
     .on('click', (event, r) => select({ year: r.year }))
     .on('keydown', (event, r) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ year: r.year }); } })
-    .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip);
+    .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip)
+    .on('focus', (event, r) => showTooltip(event, r)).on('blur', hideTooltip);
   motion(targets).attr('cx', r => x(r.year)).attr('cy', r => y(share(r)));
   if (!compact) {
     const endpoints = groups.map(g => ({ ...g, originalY: y(share(g.data.at(-1))) }))
@@ -225,6 +241,8 @@ async function init() {
   d3.selectAll('#type-control button').on('click', function () { select({ type: this.dataset.type }); });
   d3.select('#year-select').on('change', function () { select({ year: +this.value }); });
   d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all' }));
+  d3.select(window).on('keydown.tooltip', event => { if (event.key === 'Escape') hideTooltip(); });
+  d3.select(window).on('scroll.tooltip', hideTooltip);
   new ResizeObserver(() => render()).observe(d3.select('.dashboard-grid').node());
   render();
   reducedMotion.addEventListener('change', () => render());

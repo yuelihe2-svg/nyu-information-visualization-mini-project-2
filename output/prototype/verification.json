@@ -1,0 +1,13 @@
+{
+  "checked_on": "2026-11-08",
+  "browser": "Microsoft Edge / Chromium",
+  "checks": [
+    "Portable HTML loads offline through file:// with no network requests.",
+    "All 150 year x category x quintile states match the frozen CSV and update chart contexts.",
+    "Keyboard details, Escape dismissal, Space selection and pressed-state announcements work.",
+    "No horizontal overflow at 320, 390, 768, 1280 and 1600 px.",
+    "Tooltip stays within the viewport near the lower chart edge.",
+    "No uncaught browser errors."
+  ],
+  "human_peer_testing": "Not conducted; not replaced by automated checks."
+}

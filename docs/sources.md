@@ -38,5 +38,6 @@ Course PDFs provided by the instructor, located in the parent `information` dire
 | Date | Tool | Assistance | Student responsibility |
 | --- | --- | --- | --- |
 | 2026-10-08 | OpenAI Codex | Read assignment and lecture PDFs; identified official BLS series; generated data-fetch script, D3 dashboard, layout sketches, written drafts, local checks, and annotated demo screenshots. | Review and make final visual-design choices; understand and be able to explain submitted code and calculations; conduct two genuine peer tests; revise the final report and reflection in the student's own voice. |
+| 2026-11-08 | OpenAI Codex | Responded to instructor feedback with a dedicated prototype cover and a detailed data-based chart diagram; added context labels, keyboard details, offline packaging, two prototype screenshots, a classroom rehearsal guide, and automated verification. | Conduct the actual classroom demonstration, collect and report genuine peer feedback, and complete the final usability study. |
 
 The course allows AI assistance with code but requires student design decisions and citation of adapted material. The code and drafts here are disclosed; no peer testing results are claimed.

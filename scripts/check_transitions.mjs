@@ -62,6 +62,26 @@ try {
   const expected = await page.locator('.dot-hit').first().getAttribute('aria-label');
   assert(expected.includes('2024: 15.7'));
 
+  // Switching layouts and scale mid-transition must settle to the same geometry
+  // as an immediate render, without stale points surviving in the visible view.
+  await page.evaluate(async () => {
+    for (const action of [
+      () => document.querySelector('[data-mode="facets"]').click(),
+      () => document.querySelector('#zoom-trend').click(),
+      () => document.querySelector('[data-type="away"]').click(),
+      () => document.querySelector('[data-mode="overlay"]').click(),
+      () => document.querySelector('[data-mode="facets"]').click(),
+    ]) { action(); await new Promise(resolve => setTimeout(resolve, 55)); }
+  });
+  await page.waitForTimeout(520);
+  const animatedFacetPositions=await page.locator('.facet-point').evaluateAll(ns=>ns.map(n=>+n.getAttribute('cy')));
+  assert.equal(animatedFacetPositions.length,50);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.waitForTimeout(50);
+  const immediateFacetPositions=await page.locator('.facet-point').evaluateAll(ns=>ns.map(n=>+n.getAttribute('cy')));
+  immediateFacetPositions.forEach((v,i)=>assert(Math.abs(v-animatedFacetPositions[i])<.001));
+  await page.locator('#reset-button').click();
+
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const reduced = await page.evaluate(() => {
     document.querySelector('[data-type="home"]').click();
@@ -76,7 +96,7 @@ try {
   await page.keyboard.press('Enter');
   assert(await page.locator('.dot-hit').first().evaluate(node => node === document.activeElement), 'Keyboard focus must survive updates');
   assert.deepEqual(errors, []);
-  console.log('Pass: intermediate geometry, persistent marks, rapid selections, reduced motion, retained keyboard focus, no browser errors.');
+  console.log('Pass: intermediate geometry, persistent marks, rapid selections and layout/zoom interruption, reduced motion, retained keyboard focus, no browser errors.');
 } finally {
   await browser.close();
 }

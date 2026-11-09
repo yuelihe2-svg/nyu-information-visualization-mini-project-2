@@ -1,0 +1,115 @@
+{
+  "checked_on": "2026-11-09T19:31:28.888Z",
+  "data_validation": [
+    "missing row",
+    "duplicate key",
+    "nonfinite amount",
+    "zero denominator",
+    "wrong rank",
+    "invalid year",
+    "invalid group",
+    "inconsistent components"
+  ],
+  "browsers": [
+    {
+      "name": "Edge",
+      "version": "156.0.4314.50",
+      "states": 600,
+      "checks": [
+        "600 complete states: share, dollars, quintile gap, annotation context and all 50 trend point positions match source data.",
+        "Undo restores category, group, layout, zoom and pre-reset selection.",
+        "Open-table reflow and facet label containment at 9 widths (320–1920 px); native table headers and keyboard skip link checked.",
+        "Keyboard Space/Escape/focus retention and downloaded CSV amounts verified.",
+        "Print report preserves selected state and restores the collapsed disclosure.",
+        "Emulated touch tap selects Middle / Away / 2020 in facets.",
+        "Corrupt same-length dataset shows an alert and hides misleading charts. Offline startup requires no network."
+      ],
+      "axe": [
+        {
+          "state": "default",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "facets-zoom",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "mobile",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        }
+      ],
+      "performance": {
+        "offline_load_ms": 206,
+        "update_batch_p95_ms": 21.1
+      }
+    },
+    {
+      "name": "Firefox",
+      "version": "157.0",
+      "states": 600,
+      "checks": [
+        "600 complete states: share, dollars, quintile gap, annotation context and all 50 trend point positions match source data.",
+        "Undo restores category, group, layout, zoom and pre-reset selection.",
+        "Open-table reflow and facet label containment at 9 widths (320–1920 px); native table headers and keyboard skip link checked.",
+        "Keyboard Space/Escape/focus retention and downloaded CSV amounts verified.",
+        "Corrupt same-length dataset shows an alert and hides misleading charts. Offline startup requires no network."
+      ],
+      "axe": [
+        {
+          "state": "default",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "facets-zoom",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "mobile",
+          "violations": [],
+          "incomplete": [
+            "aria-prohibited-attr",
+            "color-contrast"
+          ]
+        }
+      ],
+      "performance": {
+        "offline_load_ms": 606,
+        "update_batch_p95_ms": 16
+      }
+    }
+  ],
+  "limitations": [
+    "Automated checks do not replace real peer sessions or NVDA/VoiceOver evaluation.",
+    "Safari/WebKit and physical mobile devices were not tested.",
+    "Browser CVD simulations cover four types, not all eight listed in the lecture."
+  ],
+  "status": "passed",
+  "sha256": {
+    "index.html": "c1cb77596285401e5c14fc9f663ec55df93bbda449b7783905b48eb0091a9f8b",
+    "src/main.js": "80be5b6dc5185864c9f578e1d00f15494896bd9aa9ed912b5d838e3b186b7b78",
+    "src/styles.css": "fae663c9260935b7157f54da83f63763936af933cb200cb1725d2050e1cac254",
+    "src/data-validation.js": "3990fbd9ec25c2bd9cde1511a8167647b1ed6b4a16e909ff2dc1d60e9cc01112",
+    "data/food_spending.csv": "c01fa33c5c4c1ee2d9482de96dfb5149070bcd5006f295c13e73b66ec398b537",
+    "output/prototype/Food_Budget_Atlas.html": "ec091225a061d65b6b96f86fee34f842232498343c1f32540ca9da6d761493b4"
+  }
+}

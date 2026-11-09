@@ -17,7 +17,7 @@ try {
   for(const type of ['all','home','away']) {
     const field={all:'food_total_usd',home:'food_at_home_usd',away:'food_away_from_home_usd'}[type];
     const shares=rows.map(r=>100*Number(r[field])/Number(r.total_expenditures_usd));
-    const domain=[Math.max(0,Math.floor(Math.min(...shares)-.5)),Math.ceil(Math.max(...shares)+.5)];
+    const domain=[0,Math.ceil(Math.max(...shares)+.5)];
     await page.locator(`[data-type="${type}"]`).click();
     for(const mode of ['overlay','facets']) {
       await page.locator(`[data-mode="${mode}"]`).click();

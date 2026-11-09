@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import foodDataUrl from '../data/food_spending.csv?url';
 import './styles.css';
+import { validateRows } from './data-validation.js';
 
 // One shared state drives every view. Each chart changes state through select().
 const state = { year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'overlay', zoom: false };
@@ -13,6 +14,7 @@ const tooltip = d3.select('#tooltip');
 let rows = [];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let animateUpdate = false;
+const history = [];
 
 // Interrupt from the displayed position so rapid selections never queue stale moves.
 function motion(selection) {
@@ -35,6 +37,9 @@ function selectedRow() {
 }
 
 function select(next) {
+  if (Object.keys(next).every(key => state[key] === next[key])) return;
+  history.push({ ...state });
+  if (history.length > 100) history.shift();
   Object.assign(state, next);
   render(true);
 }
@@ -90,6 +95,8 @@ function drawSummary() {
   d3.selectAll('#type-control button').classed('active', function () { return this.dataset.type === state.type; })
     .attr('aria-pressed', function () { return this.dataset.type === state.type; });
   d3.select('#year-select').property('value', state.year);
+  d3.select('#quintile-select').property('value', state.quintile);
+  d3.select('#undo-button').property('disabled', history.length === 0);
   const category = { all: 'All food', home: 'At home', away: 'Away from home' }[state.type];
   d3.select('#compare-context').text(`${category} · ${state.year} · share of total expenditures`);
   d3.select('#composition-context').text(`${state.year} · both categories shown · selected: ${names[state.quintile]}`);
@@ -103,6 +110,10 @@ function drawSummary() {
   const change = share(last) - share(first);
   d3.select('#trend-title').text(`Share ${change >= 0 ? 'rose' : 'fell'} ${fmtPct(Math.abs(change))} pp from 2015 to 2024`);
   d3.select('#selection-announcement').text(`${names[state.quintile]}, ${state.year}. ${category}: ${fmtPct(share(row))} percent of total expenditures, ${fmtMoney(row[field(state.type)])}. All three charts updated.`);
+  const previous = rows.find(r => r.year === state.year - 1 && r.income_quintile === state.quintile);
+  d3.select('#trend-observation').text(previous
+    ? `${state.year - 1} → ${state.year}: ${fmtPct(share(previous))}% → ${fmtPct(share(row))}% (${d3.format('+.1f')(share(row) - share(previous))} pp). Observed group means; this does not establish a cause.`
+    : `2015 starts this series: ${fmtPct(share(row))}% of total expenditures. No earlier year is included.`);
 }
 
 function drawQuintiles() {
@@ -138,6 +149,12 @@ function drawQuintiles() {
     .attr('stroke', '#fff').attr('stroke-width', 2);
   marks.selectAll('.value-label').data(r => r.income_quintile === state.quintile ? [r] : []).join('text').attr('class', 'value-label')
     .attr('x', r => size(r.food_total_usd) + 9).attr('y', 4).text(r => `${fmtPct(share(r))}%`);
+  const legend = d3.select('#size-legend').selectAll('svg').data([null]).join('svg')
+    .attr('width', 280).attr('height', 38).attr('viewBox', '0 0 280 38').attr('role', 'img')
+    .attr('aria-label', 'Circle area reference: 5,000, 10,000 and 15,000 dollars in annual all-food spending.');
+  const samples = legend.selectAll('g').data([5000,10000,15000]).join('g').attr('transform',(d,i)=>`translate(${20+i*91},19)`);
+  samples.selectAll('circle').data(d=>[d]).join('circle').attr('r',size).attr('fill',colors.muted).attr('stroke','#fff').attr('stroke-width',2);
+  samples.selectAll('text').data(d=>[d]).join('text').attr('x',16).attr('y',4).attr('fill',colors.ink).attr('font-size',11).text(d=>`$${d/1000}k`);
 }
 
 function drawComposition() {
@@ -178,8 +195,8 @@ function drawComposition() {
 // selected group/year never changes scale, and every facet uses this same domain.
 function trendDomain() {
   if (!state.zoom) return [0, 20];
-  const [min, max] = d3.extent(rows, r => share(r));
-  return [Math.max(0, Math.floor(min - .5)), Math.ceil(max + .5)];
+  const max = d3.max(rows, r => share(r));
+  return [0, Math.ceil(max + .5)];
 }
 
 function drawTrend() {
@@ -191,7 +208,7 @@ function drawTrend() {
     .classed('active', function () { return this.dataset.mode === state.trendMode; });
   d3.select('#zoom-trend').property('checked', state.zoom);
   d3.select('#trend-scale-note').classed('zoomed', state.zoom).text(state.zoom
-    ? `Zoomed Y-axis: ${domain[0]}–${domain[1]}%. Zero is excluded; vertical differences appear larger. The range covers every year and quintile in this category.`
+    ? `Zoomed Y-axis: 0–${domain[1]}%. Zero is retained; only the upper limit changes. All years and quintiles in this category share this range. Dot and bar scales remain 0–20%.`
     : 'Full Y-axis: 0–20%. Use Zoom Y-axis to inspect small differences.');
   d3.select('#trend-instructions').text(facets
     ? 'All five panels share the same X and Y scales. Select any point to update both the income quintile and year across the dashboard. Keyboard: Tab, then Enter or Space.'
@@ -229,7 +246,7 @@ function drawOverlay(domain) {
     .attr('stroke', '#fff').attr('stroke-width', 1.4);
   // An invisible larger hit target makes each year usable by mouse and keyboard.
   const targets = plot.selectAll('.trend-hit').data(rows.filter(r => r.income_quintile === state.quintile), r => r.year).join('circle').attr('class', 'trend-hit')
-    .attr('r', compact ? 10 : 11)
+    .attr('r', 12)
     .attr('fill', 'transparent').attr('tabindex', 0).attr('role', 'button')
     .attr('aria-pressed', r => r.year === state.year)
     .attr('aria-label', r => `${names[r.income_quintile]}, ${r.year}: ${fmtPct(share(r))} percent. Select year.`)
@@ -286,7 +303,7 @@ function drawFacets(domain) {
       .attr('cx',r=>x(r.year)).attr('cy',r=>y(share(r))).attr('r',r=>r.year===state.year?5:3)
       .attr('fill',q===state.quintile?colors.ink:colors.muted).attr('stroke','#fff').attr('stroke-width',1);
     const targets=plot.selectAll('.facet-hit').data(data,r=>r.year).join('circle').attr('class','facet-hit')
-      .attr('r',10).attr('fill','transparent').attr('tabindex',0).attr('role','button')
+      .attr('r',12).attr('fill','transparent').attr('tabindex',0).attr('role','button')
       .attr('aria-pressed',r=>r.year===state.year && q===state.quintile)
       .attr('aria-label',r=>`${names[q]}, ${r.year}: ${fmtPct(share(r))} percent. Select quintile and year.`)
       .on('click',(event,r)=>select({quintile:q,year:r.year}))
@@ -336,9 +353,18 @@ async function init() {
     total_expenditures_usd: +d.total_expenditures_usd, food_total_usd: +d.food_total_usd,
     food_at_home_usd: +d.food_at_home_usd, food_away_from_home_usd: +d.food_away_from_home_usd,
   }));
-  if (rows.length !== 50) throw new Error('Expected 50 BLS records; check data/food_spending.csv');
+  validateRows(rows, quintiles);
   d3.select('#year-select').selectAll('option').data(d3.range(2024, 2014, -1)).join('option')
     .attr('value', d => d).text(d => d);
+  d3.select('#quintile-select').selectAll('option').data(quintiles).join('option').attr('value',d=>d).text(d=>names[d]);
+  d3.select('#quintile-select').on('change',function(){select({quintile:this.value});});
+  d3.select('#undo-button').on('click',()=>{if(history.length){Object.assign(state,history.pop());render(true);}});
+  d3.select('.skip-link').on('click',event=>{
+    event.preventDefault();
+    document.querySelector('#data-details').open=true;
+    document.querySelector('#data-details summary').focus();
+    document.querySelector('#data-details').scrollIntoView({block:'start'});
+  });
   d3.selectAll('#type-control button').on('click', function () { select({ type: this.dataset.type }); });
   d3.select('#year-select').on('change', function () { select({ year: +this.value }); });
   d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'overlay', zoom: false }));
@@ -369,5 +395,6 @@ async function init() {
 
 init().catch(error => {
   console.error(error);
-  d3.select('.hero').append('p').attr('class', 'load-error').text('The dashboard data could not be loaded. Please refresh or follow the local setup instructions.');
+  d3.selectAll('.controls,.summary,.dashboard-grid,.data-section').property('hidden',true);
+  d3.select('.hero').append('p').attr('class', 'load-error').attr('role','alert').text('The dashboard data could not be loaded or verified. Please reopen the original dashboard file or follow the local setup instructions.');
 });

@@ -20,7 +20,7 @@ In the default 2024 Lowest record, food spending is $5,498 and total expenditure
 - The stacked bars compute home and away shares separately. Home starts at zero; away starts at the end of home. Segment width represents its own share of total expenditures. Comparing away segments requires comparing lengths rather than right-edge positions.
 - The trend chart maps year to x and share to y. Each quintile has one path; straight segments connect the ten annual observations. The selected line is thicker and darker. In overlay mode, only that line has interactive year targets. In facet mode, every panel has targets that select both quintile and year.
 
-The default percentage domains are 0-20%. Dot/bar domains always stay fixed. Optional trend zoom uses one category-wide range and explicitly states that zero is excluded; all facets keep identical scales.
+The default percentage domains are 0-20%. Dot/bar domains always stay fixed. Optional trend zoom uses one category-wide range and explicitly states that zero is retained; all facets keep identical scales.
 
 ## How animation works
 
@@ -45,4 +45,10 @@ These answers should reflect your understanding. A working program or a written 
 
 ## Trend layouts and shared scales
 
-`state.trendMode` selects overlay or facets; `state.zoom` controls only the trend Y-axis. `trendDomain()` computes the full [0,20] range or a padded extent of all 50 observations in the active food category. `drawOverlay()` and `drawFacets()` receive that same domain. Facets use equal scales, ordered panels and persistent point targets; clicking one changes both `quintile` and `year` through `select()`. A quintile/year change never changes the zoom domain. Reset also restores overlay mode and the full axis. The text below the controls explicitly identifies a nonzero baseline. The native tables retain exact values regardless of the layout.
+`state.trendMode` selects overlay or facets; `state.zoom` controls only the trend Y-axis. `trendDomain()` computes the full [0,20] range or [0, ceiling(maximum share + 0.5)] from all 50 observations in the active food category. `drawOverlay()` and `drawFacets()` receive that same domain. Facets use equal scales, ordered panels and persistent point targets; clicking one changes both `quintile` and `year` through `select()`. A quintile/year change never changes the zoom domain. Reset also restores overlay mode and the full axis. The text below the controls explicitly identifies the zero baseline and current upper limit. The native tables retain exact values regardless of the layout.
+
+## Recovery and defensive loading
+
+`select()` ignores unchanged values, stores up to 100 previous states, and redraws. Undo restores the entire previous state, including presentation settings; Reset is itself undoable. The income dropdown provides a native alternative to selecting a mark. The skip link opens and focuses the native table disclosure.
+
+`validateRows()` rejects missing/duplicate year-group keys, invalid types/ranks, nonpositive denominators and inconsistent components before drawing. A failed load hides the chart controls and shows an alert. The size legend uses the same square-root radius scale as the data dots. Year-to-year annotations are calculated from the selected category/group and do not assert causation.

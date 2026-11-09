@@ -64,6 +64,10 @@ The package includes `Reflection.pdf` with lecture references, tradeoffs and the
 
 **Overlaid trends** compares relative levels; **Small multiples** separates the five income quintiles into ordered panels (Week 6, PDF pp. 8–9). All panels share the 2015–2024 X-axis and identical Y-axis. Clicking a facet point selects both its quintile and year across all views and tables. Panels stack on narrow screens.
 
-**Zoom Y-axis** changes only the trend scale from 0–20% to a category-wide range: floor(minimum share minus 0.5 percentage points), bounded by zero, through ceiling(maximum share plus 0.5 percentage points). All 50 observations determine the extent, so changing the selected year/quintile cannot rescale the chart. An explicit message states the range and excluded zero. Dot/bar scales remain 0–20%; Reset restores the original layout and scale.
+**Zoom Y-axis** changes only the trend scale from 0–20% to a category-wide range: zero through ceiling(maximum share plus 0.5 percentage points). All 50 observations determine the extent, so changing the selected year/quintile cannot rescale the chart. An explicit message states the range and confirms that zero is retained, following the axis warning in Week 2 (PDF p. 48). Dot/bar scales remain 0–20%; Reset restores the original layout and scale.
 
 Facets remove overlap but consume space; zoom reveals differences but magnifies their appearance. These zoom bounds are an implementation choice, not a numerical rule from the lecture. The second screenshot demonstrates Small multiples + Zoom. `trend-verification.json` records checks of all 12 category/layout/scale combinations and 150 facet selections. Run `node scripts/check_trend_modes.mjs` after building the portable HTML.
+
+## Lecture audit follow-up
+
+Native income selection and Undo make exploration recoverable; a numeric size legend decodes dot area. Zero-preserving zoom follows the lecture warning about truncated axes. The interface labels the hero as an all-food overview and notes that quintiles are re-ranked annually, uncertainty is not shown, and group means do not establish causation. See the engineering QA report for the full audit and reproducible tests. Classroom attendance, genuine feedback and two-peer final usability testing remain pending.

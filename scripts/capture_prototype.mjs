@@ -41,6 +41,6 @@ try {
   await page.locator('[data-mode="facets"]').click();
   await page.locator('#zoom-trend').check();
   await capture('02-linked-selection.png','02 / SMALL MULTIPLES + ZOOM - Middle-income group, away from home, 2020',
-    'Each group has a separate trend with identical axes. Points select quintile + year. Zoom excludes zero, using one category-wide range. The selected share is 4.0% ($2,070).');
+    'Each group has a separate trend with identical axes. Points select quintile + year. Zoom keeps zero, using one category-wide range. The selected share is 4.0% ($2,070).');
   console.log('Saved two annotated screenshots from the offline prototype.');
 } finally { await browser.close(); }

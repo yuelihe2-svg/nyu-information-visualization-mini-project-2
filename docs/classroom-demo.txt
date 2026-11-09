@@ -34,5 +34,5 @@ Use docs/usability-testing.md in the source folder. Give each of two peers the s
 
 OPTIONAL TREND DEMONSTRATION (20 SECONDS)
 Choose Away from home, Small multiples, then Zoom Y-axis.
-"These lines are close together, so I added small multiples from Week 6. Each income group has its own panel, with the same scales. Zoom excludes zero, which is clearly labeled. It helps inspect small differences without changing the values. Selecting this 2020 point updates the group and year everywhere."
+"These lines are close together, so I added small multiples from Week 6. Each income group has its own panel, with the same scales. Zoom keeps zero and lowers only the upper limit, which is clearly labeled. It helps inspect small differences without changing the values. Selecting this 2020 point updates the group and year everywhere."
 Click a facet point, then Reset view to restore the full-scale overview.

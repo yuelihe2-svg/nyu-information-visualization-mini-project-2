@@ -19,9 +19,9 @@
 
       <main>
         <section class="hero">
-          <div class="eyebrow">AN INTERACTIVE VIEW OF 2015–2024</div>
+          <div class="eyebrow">ALL-FOOD OVERVIEW · 2015–2024</div>
           <h1>Lower-income groups spend a <em>larger share</em> on food.</h1>
-          <p class="lede">Across U.S. income quintiles, a food bill can take a very different share of the annual household budget. Select a dot, year, or food segment to explore the pattern.</p>
+          <p class="lede">Total food spending takes a different share of each income group’s expenditure budget. At-home and away-from-home patterns can differ. Select a dot, year, or food segment to explore the pattern.</p>
         </section>
 
         <section class="controls" aria-label="Dashboard controls">
@@ -33,10 +33,15 @@
               <button type="button" data-type="away">Away from home</button>
             </div>
           </div>
+          <div class="control-group income-control">
+            <label class="control-label" for="quintile-select">INCOME GROUP</label>
+            <select id="quintile-select"></select>
+          </div>
           <div class="control-group year-control">
             <label class="control-label" for="year-select">YEAR</label>
             <select id="year-select" aria-label="Select year"></select>
           </div>
+          <button class="reset-button" type="button" id="undo-button" disabled>Undo</button>
           <button class="reset-button" type="button" id="reset-button">Reset view ↺</button>
         </section>
 
@@ -63,6 +68,7 @@
             <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = all-food dollars</span></div>
             <p class="card-description" id="compare-context">All food · 2024 · share of total expenditures</p>
             <div id="quintile-chart" class="chart" role="group" aria-label="Dot plot of the food budget share for five income quintiles"></div>
+            <div id="size-legend" aria-label="Annual all-food spending size reference"></div>
             <div class="chart-footnote">Click a dot to select an income quintile. Dot area always shows annual <strong>all-food dollars</strong>, even when filtering by category. Income rank uses income before taxes.</div>
           </section>
 
@@ -87,6 +93,7 @@
             <p id="trend-scale-note" class="scale-note" aria-live="polite"></p>
             <div id="trend-facets" hidden></div>
             <div id="trend-chart" class="chart" role="group" aria-label="Line chart showing food budget share from 2015 to 2024 for five income quintiles"></div>
+            <p class="trend-observation" id="trend-observation"></p>
             <div class="chart-footnote" id="trend-instructions">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
           </section>
         </div>
@@ -102,7 +109,7 @@
 
         <section class="method" aria-labelledby="method-title">
           <div><span class="view-number">READING THE DATA</span><h2 id="method-title">A share, not an affordability score.</h2></div>
-          <p>Each point is an average annual expenditure for a group of consumer units, not the experience of every household. The budget share is food spending divided by total spending. A higher share does not by itself establish food insecurity, prices paid, or causation. The at-home and away-from-home figures may differ from total food by $1–$2 because BLS rounds published means.</p>
+          <p>Each point is an average annual expenditure for a group of consumer units, not the experience of every household. The budget share is food spending divided by total spending. Income groups are ranked separately each year, so the lines do not track the same households. Sampling uncertainty is not shown; small differences should not be treated as statistically significant. A higher share does not by itself establish food insecurity, prices paid, or causation. The at-home and away-from-home figures may differ from total food by $1–$2 because BLS rounds published means.</p>
         </section>
       </main>
 

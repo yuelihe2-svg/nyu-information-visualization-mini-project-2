@@ -38,7 +38,9 @@ try {
     '2024, all food: Lowest 20% = 15.7%; Highest 20% = 11.3%. Read the dot plot, then the home/away composition, then the time trend. All percentages use total expenditures as the denominator.');
   await page.locator('.segment[aria-label^="Middle 20%, away"]').click();
   await page.locator('.trend-hit[aria-label^="Middle 20%, 2020:"]').click();
-  await capture('02-linked-selection.png','02 / LINKED SELECTION - Middle-income group, away from home, 2020',
-    'Click the orange Middle segment, then its dark 2020 point: the summary, dot positions, composition year, and trend marker update together. Reset restores the initial 2024 all-food view.');
+  await page.locator('[data-mode="facets"]').click();
+  await page.locator('#zoom-trend').check();
+  await capture('02-linked-selection.png','02 / SMALL MULTIPLES + ZOOM - Middle-income group, away from home, 2020',
+    'Each group has a separate trend with identical axes. Points select quintile + year. Zoom excludes zero, using one category-wide range. The selected share is 4.0% ($2,070).');
   console.log('Saved two annotated screenshots from the offline prototype.');
 } finally { await browser.close(); }

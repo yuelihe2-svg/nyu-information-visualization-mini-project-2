@@ -58,3 +58,12 @@ The final submission additionally requires the genuine two-peer, three-tasks-per
 Week 6 (PDF pp. 6, 10–15, 19–20, 26, 37) informs focus/context, direct labels, data-derived insight titles, reduced motion and non-hover access. Native tables update with the year/quintile; all 50 records can be downloaded as CSV. Print/save-PDF expands the tables automatically. Essential data marks retain at least 3:1 contrast on white, including nonselected categories; outlines and line width communicate selection. Week 9 (PDF p. 37) supports the shared selection state.
 
 The package includes `Reflection.pdf` with lecture references, tradeoffs and the updated channel table. Browser simulations cover protanopia, deuteranopia, tritanopia and achromatopsia; they do not establish universal color-vision accessibility. Real screen-reader testing, classroom feedback and the final two-peer usability report remain pending. Automated verification is documented separately from human feedback.
+
+
+## Trend comparison modes
+
+**Overlaid trends** compares relative levels; **Small multiples** separates the five income quintiles into ordered panels (Week 6, PDF pp. 8–9). All panels share the 2015–2024 X-axis and identical Y-axis. Clicking a facet point selects both its quintile and year across all views and tables. Panels stack on narrow screens.
+
+**Zoom Y-axis** changes only the trend scale from 0–20% to a category-wide range: floor(minimum share minus 0.5 percentage points), bounded by zero, through ceiling(maximum share plus 0.5 percentage points). All 50 observations determine the extent, so changing the selected year/quintile cannot rescale the chart. An explicit message states the range and excluded zero. Dot/bar scales remain 0–20%; Reset restores the original layout and scale.
+
+Facets remove overlap but consume space; zoom reveals differences but magnifies their appearance. These zoom bounds are an implementation choice, not a numerical rule from the lecture. The second screenshot demonstrates Small multiples + Zoom. `trend-verification.json` records checks of all 12 category/layout/scale combinations and 150 facet selections. Run `node scripts/check_trend_modes.mjs` after building the portable HTML.

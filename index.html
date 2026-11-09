@@ -75,10 +75,19 @@
           </section>
 
           <section class="card card-trend" aria-labelledby="trend-title">
-            <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div><span class="chart-note">Click a dark point to choose a year</span></div>
+            <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div><span class="chart-note">Compare levels or inspect changes</span></div>
             <p class="card-description" id="trend-context">All food · dark line: Lowest 20% · selected year: 2024</p>
+            <div class="trend-controls">
+              <div class="segmented" id="trend-mode" role="group" aria-label="Trend layout">
+                <button type="button" data-mode="overlay" aria-pressed="true">Overlaid trends</button>
+                <button type="button" data-mode="facets" aria-pressed="false">Small multiples</button>
+              </div>
+              <label class="zoom-control"><input type="checkbox" id="zoom-trend" aria-describedby="trend-scale-note" /> Zoom Y-axis</label>
+            </div>
+            <p id="trend-scale-note" class="scale-note" aria-live="polite"></p>
+            <div id="trend-facets" hidden></div>
             <div id="trend-chart" class="chart" role="group" aria-label="Line chart showing food budget share from 2015 to 2024 for five income quintiles"></div>
-            <div class="chart-footnote">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
+            <div class="chart-footnote" id="trend-instructions">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
           </section>
         </div>
 

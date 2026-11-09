@@ -47,10 +47,13 @@ The course allows AI assistance with code but requires student design decisions 
 
 Instructor PDFs supplied under `D:/Users/heelii/Downloads/` were reviewed for relevant guidance. References use PDF page numbers:
 
-- `Week 5-2D_Visualization.pdf`: hierarchy (37), cognitive load (38). The three different dashboard chart types are not claimed as small multiples.
+- `Week 5-2D_Visualization.pdf`: hierarchy (37), cognitive load (38). Small multiples refers to the five-panel trend mode; the three different chart types are coordinated views.
 - `Week 6-TimeSeriesAccessibility.pdf`: focus/context (6), direct labels (10–11), insight titles (14), hover-only trap (15), animation tradeoffs (19–20), accessibility checklist (26), verification (37). This file has 40 PDF pages; printed slide numbering differs.
 - `Week 7- Graph visualization.pdf`: coordinated graph/matrix views (44); no network structure was invented for the expenditure data.
 - `Week_8-3D_Urban_Visualization.pdf`: dashboard organization (27), novice usability (43), uncertainty (44). No unsupported confidence intervals or 3D views were added.
 - `Week 9-Advanced-UrbanViz.pdf`: shared state across linked views (37).
 
 Codex assisted with this review and the implementation of native data tables, CSV export, print styles, data-derived chart titles, revised mark contrast, documentation and checks. The current palette replaces the earlier orange/context fills described in the historical October review. Data marks use teal #216d77, orange #b8622e, context #718783 and ink #17333a, with no opacity reduction. Browser simulations cover four types (protanopia, deuteranopia, tritanopia, achromatopsia), not all eight types listed in the lecture. Native table semantics and keyboard behavior were checked; no actual NVDA/VoiceOver user session is claimed. Student review of design decisions, code understanding and real peer testing remain required.
+
+
+The November 9 trend revision applies Week 6 PDF pp. 6, 8–9 and 24: focus/context, small multiples with identical scales, and reducing overlapping lines. Week 5 PDF p. 32 also discusses small multiples. Codex implemented the user-selected layout switch and optional zoom, shared scale, nonzero-baseline disclosure, keyboard interactions and verification. This refinement follows the student's observation of overlapping lines; it is not recorded as a two-peer usability study.

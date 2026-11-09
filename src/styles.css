@@ -100,7 +100,7 @@ summary:focus-visible, .table-scroll:focus-visible { outline: 2px solid #b05b32;
   .card, .summary, .table-scroll { break-inside: avoid; }
   .card { margin-bottom: 14px; }
   .chart-note { display: block; }
-  .chart svg { width: 100%; height: auto; }
+  .chart svg { max-width: 100%; }
   .data-section { break-before: page; padding: 0; border: 0; }
   .table-scroll { overflow: visible; }
   .data-table { font-size: 9px; }

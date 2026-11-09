@@ -22,7 +22,7 @@ for (const match of [...html.matchAll(/<link\b[^>]*href="([^"]+\.css)"[^>]*>/g)]
 }
 // Use the existing Georgia/Arial fallbacks so no fonts are fetched offline.
 html = html.replace(/<link\b[^>]*https:\/\/fonts\.[^>]*>/g, '');
-html = html.replace(/^[\t ]+$/gm, '');
+html = html.replace(/\r\n/g, '\n').replace(/^[\t ]+$/gm, '');
 if (/<(?:script|link)\b[^>]*(?:src|href)="(?:\/assets|https?:)/.test(html)) throw new Error('Unexpected external startup asset.');
 const output = join(root, 'output', 'prototype', 'Food_Budget_Atlas.html');
 await mkdir(join(root, 'output', 'prototype'), { recursive: true });

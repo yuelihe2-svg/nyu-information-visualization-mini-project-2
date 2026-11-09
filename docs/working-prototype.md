@@ -4,7 +4,7 @@
 
 **Course:** Information Visualization, NYU Tandon
 
-**Prepared:** November 8, 2026
+**Prepared:** November 9, 2026
 
 **Stage:** Mid Submission / Working Prototype
 
@@ -51,3 +51,10 @@ This 20-point prototype rubric contributes 5 project points after division by fo
 - `preparation/`: English demonstration notes and a blank short-feedback template. This template is not completed evidence. Replace it with an actual log after the session, limited to half a page.
 
 The final submission additionally requires the genuine two-peer, three-tasks-per-peer usability study, its 2-3 page report, changes tied to findings and before/after evidence. That final report is not claimed in this prototype package.
+
+
+## November 9 lecture-based improvements
+
+Week 6 (PDF pp. 6, 10–15, 19–20, 26, 37) informs focus/context, direct labels, data-derived insight titles, reduced motion and non-hover access. Native tables update with the year/quintile; all 50 records can be downloaded as CSV. Print/save-PDF expands the tables automatically. Essential data marks retain at least 3:1 contrast on white, including nonselected categories; outlines and line width communicate selection. Week 9 (PDF p. 37) supports the shared selection state.
+
+The package includes `Reflection.pdf` with lecture references, tradeoffs and the updated channel table. Browser simulations cover protanopia, deuteranopia, tritanopia and achromatopsia; they do not establish universal color-vision accessibility. Real screen-reader testing, classroom feedback and the final two-peer usability report remain pending. Automated verification is documented separately from human feedback.

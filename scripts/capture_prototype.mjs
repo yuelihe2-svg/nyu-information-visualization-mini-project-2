@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 const root = resolve(import.meta.dirname, '..');
 const directory = resolve(root, 'output/prototype/screenshots');
 await mkdir(directory, {recursive: true});
-const browser = await chromium.launch({headless:true, executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
+const browser = await chromium.launch({headless:true, args:['--disable-gpu'], executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
 try {
   const page = await browser.newPage({viewport:{width:1440,height:1100}, reducedMotion:'reduce', offline:true});
   await page.goto(pathToFileURL(resolve(root, 'output/prototype/Food_Budget_Atlas.html')).href);
@@ -14,7 +14,7 @@ try {
   // Show the actual controls, summary, and all three views at a readable scale.
   // These notes are screenshot annotations only, not claims of peer observations.
   await page.addStyleTag({content: `
-    .masthead,.hero,.method,footer {display:none!important}
+    .masthead,.hero,.method,.data-section,footer {display:none!important}
     main {padding-top:20px;padding-bottom:20px}
     .capture-note {font:14px/1.5 Arial,sans-serif;padding:18px 24px;margin:0 0 18px;border-left:5px solid #216d77;background:#e9f1ed;color:#17333a}
     .capture-note strong {display:block;font-size:18px;margin-bottom:4px}
@@ -29,6 +29,9 @@ try {
     },{title,description});
     await page.mouse.move(0,0);
     await page.keyboard.press('Escape');
+    await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0,0); });
+    // Allow resize/scroll painting to settle before capturing the whole document.
+    await page.waitForTimeout(180);
     await page.screenshot({path:resolve(directory,filename),fullPage:true});
   }
   await capture('01-overview.png','01 / OVERVIEW - Which income group spends the largest share on food?',

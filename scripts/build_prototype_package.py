@@ -18,7 +18,7 @@ PDF = OUT / 'pdf' / 'working-prototype-brief.pdf'
 PDF.parent.mkdir(parents=True, exist_ok=True)
 records = list(csv.DictReader((ROOT/'data/food_spending.csv').open()))
 quintiles = ['Lowest', 'Second', 'Middle', 'Fourth', 'Highest']
-N = colors.HexColor('#17333a'); T = colors.HexColor('#216d77'); O = colors.HexColor('#df8751')
+N = colors.HexColor('#17333a'); T = colors.HexColor('#216d77'); O = colors.HexColor('#b8622e')
 M = colors.HexColor('#536a64'); P = colors.HexColor('#eef2ef'); G = colors.HexColor('#cdd7d1')
 pdfmetrics.registerFont(TTFont('Georgia', r'C:\Windows\Fonts\georgia.ttf'))
 pdfmetrics.registerFont(TTFont('Georgia-Bold', r'C:\Windows\Fonts\georgiab.ttf'))
@@ -69,7 +69,7 @@ def detailed_layout():
         text(9,y-3,quintiles[i],7,N,i==0)
         text(281,y-3,quintiles[i],7,N,i==0)
         radius=7*sqrt(float(row['food_total_usd'])/max_dollars)
-        d.add(Circle(65+share(row)*8.5,y,radius,fillColor=N if i==0 else colors.HexColor('#a8b7b5'),strokeColor=None))
+        d.add(Circle(65+share(row)*8.5,y,radius,fillColor=N if i==0 else colors.HexColor('#718783'),strokeColor=None))
         home=share(row,'food_at_home_usd')*8.5;away=share(row,'food_away_from_home_usd')*8.5
         d.add(Rect(337,y-5,home,10,fillColor=T,strokeColor=None))
         d.add(Rect(337+home,y-5,away,10,fillColor=O,strokeColor=None))
@@ -92,7 +92,7 @@ def detailed_layout():
         group=sorted([r for r in records if r['income_quintile']==q],key=lambda r:int(r['year']))
         points=[]
         for r in group: points.extend([bx+(int(r['year'])-2015)/9*pw,by+share(r)/20*ph])
-        d.add(PolyLine(points,strokeColor=N if q=='Lowest' else colors.HexColor('#a8b7b5'),strokeWidth=1.8 if q=='Lowest' else .8,fillColor=None))
+        d.add(PolyLine(points,strokeColor=N if q=='Lowest' else colors.HexColor('#718783'),strokeWidth=1.8 if q=='Lowest' else .8,fillColor=None))
         if q=='Lowest':
             for i in range(0,len(points),2):d.add(Circle(points[i],points[i+1],2.1,fillColor=N,strokeColor=colors.white,strokeWidth=.4))
         end_labels.append((points[-1],q))
@@ -106,7 +106,7 @@ def detailed_layout():
 
 diagram=detailed_layout()
 renderSVG.drawToFile(diagram,str(ROOT/'docs/prototype-layout.svg'))
-story=[Spacer(1,76),p('FOOD BUDGET ATLAS','title'),p('U.S. Food Expenditures by Income Quintile','heading'),Spacer(1,18),p('Mid Submission<br/><b>Working Prototype</b>'),Spacer(1,34),p('<b>Yueli He</b><br/>Information Visualization<br/>NYU Tandon School of Engineering<br/>Fall 2026'),Spacer(1,18),p('Prepared November 8, 2026','small'),Spacer(1,40),p('Research focus','heading'),p('How much of each income group\'s expenditure budget goes to food, how is that share split between home and away, and how does the pattern change over time?'),Spacer(1,24),p('A D3.js dashboard using official BLS Consumer Expenditure Survey data, 2015-2024.','small')]
+story=[Spacer(1,76),p('FOOD BUDGET ATLAS','title'),p('U.S. Food Expenditures by Income Quintile','heading'),Spacer(1,18),p('Mid Submission<br/><b>Working Prototype</b>'),Spacer(1,34),p('<b>Yueli He</b><br/>Information Visualization<br/>NYU Tandon School of Engineering<br/>Fall 2026'),Spacer(1,18),p('Prepared November 9, 2026','small'),Spacer(1,40),p('Research focus','heading'),p('How much of each income group\'s expenditure budget goes to food, how is that share split between home and away, and how does the pattern change over time?'),Spacer(1,24),p('A D3.js dashboard using official BLS Consumer Expenditure Survey data, 2015-2024.','small')]
 story += [PageBreak(),p('Specific views, one narrative','title'),p('Compare income groups, explain the food-category split, then examine change over time. This detailed layout replaces the earlier block-only sketch.'),diagram,Spacer(1,10)]
 story.append(table([
     ['View / research question','Contribution to the narrative'],
@@ -124,9 +124,9 @@ story.append(table([
     ['Food category','Nominal','Bar segment','Hue and segment order','Expressiveness','Two consistent hues identify home and away; order is a redundant cue.'],
     ['All-food dollars','Quantitative','Dot','Area','Expressiveness','Square-root radius makes area proportional to annual food dollars.'],
 ],[72,65,62,80,80,169]))
-story += [p('Linked selections','heading'),p('A dot selects an income quintile; a stacked segment selects a quintile and category; a dark trend point selects a year. Each action updates the other two views and the summary. Year/category controls and Reset provide additional routes. Details appear on hover or keyboard focus. Transitions last 420 ms and respect reduced-motion settings.'),p('Design tradeoffs and limits','heading'),p('Adjacent comparison cards use proximity, matching styles use similarity, and card borders use enclosure. Fixed 0-20% scales improve comparison but compress small changes. Only the selected trend line has interactive year targets, avoiding overlapping targets. Dollar values are current, not inflation adjusted; ratios of group means do not describe every household or establish causation.','small')]
+story += [p('Linked selections','heading'),p('A dot selects an income quintile; a stacked segment selects a quintile and category; a dark trend point selects a year. Each action updates the other two views and the summary. Year/category controls and Reset provide additional routes. Details appear on hover or keyboard focus. Linked native tables, a 50-record CSV download and print output provide non-hover access. Transitions last 420 ms and respect reduced-motion settings.'),p('Design tradeoffs and limits','heading'),p('Adjacent comparison cards use proximity, matching styles use similarity, and card borders use enclosure. Fixed 0-20% scales improve comparison but compress small changes. Only the selected trend line has interactive year targets, avoiding overlapping targets. Dollar values are current, not inflation adjusted; ratios of group means do not describe every household or establish causation.','small')]
 
-story += [PageBreak(),p('Access, evidence and next steps','title'),p('Run without installation','heading'),p('Extract the ZIP and double-click <b>Food_Budget_Atlas.html</b>. It contains the data, D3 code and styles, and runs offline in a modern browser. The included <b>source/</b> directory provides editable code and data; its README explains the Node/Vite development workflow.'),p('Repository: <link href="https://github.com/yuelihe2-svg/nyu-information-visualization-mini-project-2" color="#216d77">nyu-information-visualization-mini-project-2</link>. Repository access must be granted to the grader if it remains private. The package includes the source as an access fallback.','small'),p('Two annotated screenshots','heading'),p('<b>01-overview.png:</b> the 2024 all-food view links the main group comparison, the category split and the time series.<br/><b>02-linked-selection.png:</b> selecting Middle / Away from home / 2020 changes all three views. The selected share is 4.0%, corresponding to $2,070.'),p('Response to instructor feedback','heading'),p('The proposal feedback identified vague block-only sketches and a missing dedicated cover. This brief adds a separate cover, a detailed diagram with actual data-based marks and axes, and an explicit research-question-to-view mapping. The screenshots show how those visuals work together in the implemented narrative.'),p('Verification completed','heading'),p('The portable HTML was tested offline. All 150 combinations of year, food category and income quintile match the frozen CSV. Checks passed for selection from all three views, keyboard focus and selection, tooltips, reset, animation interruption, reduced motion, and responsive widths from 320 to 1600 px. No uncaught browser errors were observed.'),p('Classroom feedback still to be collected','heading'),p('Live attendance and demonstration remain part of the prototype requirement. After the session, submit a feedback log of at most half a page: who provided feedback, the main issues, and planned changes. The preparation folder contains a blank template and rehearsal notes. It is not evidence that a session occurred.'),p('Sources and AI assistance','heading'),p('Data: <link href="https://www.bls.gov/cex/" color="#216d77">BLS Consumer Expenditure Surveys</link> and <link href="https://www.bls.gov/developers/api_signature_v2.htm" color="#216d77">BLS Public Data API</link>. Software: D3.js and Vite; Playwright for automated verification. Course references: Week 3 color guidance and Week 4 visual encoding/perception. OpenAI Codex assisted with data processing, dashboard code, diagrams, documentation and automated checks. Full provenance appears in source/docs/sources.md. No peer feedback or testing results have been invented.','small')]
+story += [PageBreak(),p('Access, evidence and next steps','title'),p('Run without installation','heading'),p('Extract the ZIP and double-click <b>Food_Budget_Atlas.html</b>. It contains the data, D3 code and styles, and runs offline in a modern browser. The included <b>source/</b> directory provides editable code and data; its README explains the Node/Vite development workflow.'),p('Repository: <link href="https://github.com/yuelihe2-svg/nyu-information-visualization-mini-project-2" color="#216d77">nyu-information-visualization-mini-project-2</link>. Repository access must be granted to the grader if it remains private. The package includes the source as an access fallback.','small'),p('Two annotated screenshots','heading'),p('<b>01-overview.png:</b> the 2024 all-food view links the main group comparison, the category split and the time series.<br/><b>02-linked-selection.png:</b> selecting Middle / Away from home / 2020 changes all three views. The selected share is 4.0%, corresponding to $2,070.'),p('Response to instructor feedback','heading'),p('The proposal feedback identified vague block-only sketches and a missing dedicated cover. This brief adds a separate cover, a detailed diagram with actual data-based marks and axes, and an explicit research-question-to-view mapping. The screenshots show how those visuals work together in the implemented narrative.'),p('Verification completed','heading'),p('The portable HTML was tested offline. All 150 combinations of year, food category and income quintile match the frozen CSV. Checks passed for selection from all three views, keyboard focus and selection, tooltips, reset, animation interruption, reduced motion, and responsive widths from 320 to 1600 px. Essential marks meet 3:1 contrast on white; tables, CSV export and print output were checked. Four browser color-vision simulations were reviewed. No uncaught browser errors were observed; real screen-reader testing remains pending.'),p('Classroom feedback still to be collected','heading'),p('Live attendance and demonstration remain part of the prototype requirement. After the session, submit a feedback log of at most half a page: who provided feedback, the main issues, and planned changes. The preparation folder contains a blank template and rehearsal notes. It is not evidence that a session occurred.'),p('Sources and AI assistance','heading'),p('Data: <link href="https://www.bls.gov/cex/" color="#216d77">BLS Consumer Expenditure Surveys</link> and <link href="https://www.bls.gov/developers/api_signature_v2.htm" color="#216d77">BLS Public Data API</link>. Software: D3.js and Vite; Playwright for automated verification. Course references: Weeks 3-4 color/encoding; Week 5 hierarchy (PDF p. 37); Week 6 focus/context, non-hover access and accessibility (pp. 6, 15, 26, 37); Week 9 shared state (p. 37). OpenAI Codex assisted with data processing, dashboard code, diagrams, documentation and automated checks. Full provenance appears in source/docs/sources.md. No peer feedback or testing results have been invented.','small')]
 
 def decorate(canvas,doc):
     canvas.saveState();canvas.setFillColor(M);canvas.setFont('Helvetica-Bold',8)
@@ -139,7 +139,7 @@ SimpleDocTemplate(str(PDF),pagesize=(612,792),leftMargin=42,rightMargin=42,topMa
 # Only include explicit deliverables and tracked-style source directories, never credentials,
 # node_modules, local caches, old output archives, or temporary review files.
 readme='''FOOD BUDGET ATLAS - WORKING PROTOTYPE
-Author: Yueli He | Information Visualization | Prepared November 8, 2026
+Author: Yueli He | Information Visualization | Prepared November 9, 2026
 
 START HERE
 1. Extract this ZIP to a normal folder.
@@ -150,6 +150,7 @@ START HERE
 
 SUBMISSION MATERIALS
 - Working_Prototype_Brief.pdf: separate cover, detailed chart design, data/encoding table and evidence.
+- Reflection.pdf: one-page principles, tradeoffs and current channel table; review in your own voice.
 - screenshots/: the two annotated screenshots required for this prototype stage.
 - Food_Budget_Atlas.html: working prototype, ready for a classroom demo or grading.
 - source/: editable D3/Vite code, CSVs, provenance and setup instructions.
@@ -172,6 +173,7 @@ This is the mid-submission prototype package. The final two-peer usability repor
 archive=OUT/'Working_Prototype_Package.zip'
 with ZipFile(archive,'w',ZIP_DEFLATED) as z:
     z.write(PDF,'Working_Prototype_Brief.pdf')
+    z.write(OUT/'pdf/reflection.pdf','Reflection.pdf')
     z.write(OUT/'prototype/Food_Budget_Atlas.html','Food_Budget_Atlas.html')
     z.write(OUT/'prototype/verification.json','verification.json')
     for file in sorted((OUT/'prototype/screenshots').glob('*.png')):z.write(file,'screenshots/'+file.name)
@@ -207,7 +209,7 @@ The standalone output is `output/prototype/Food_Budget_Atlas.html`. Browser chec
 
 For a development server on port 4173, also run `node scripts/check_dashboard.mjs` and `node scripts/check_transitions.mjs`. Both accept a `DASHBOARD_URL` environment variable for other URLs or the standalone file.
 
-To reproduce the submission documents after verification, run `node scripts/capture_prototype.mjs`, then `python scripts/build_prototype_package.py`. The PDF builder requires ReportLab and the Windows Georgia fonts.
+To reproduce the submission documents after verification, run `node scripts/capture_prototype.mjs`, then `python scripts/build_reflection_pdf.py` and `python scripts/build_prototype_package.py`. The PDF builder requires ReportLab and the Windows Georgia fonts.
 
 ## Source map
 

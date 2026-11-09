@@ -1,12 +1,15 @@
 {
-  "checked_on": "2026-11-08",
+  "checked_on": "2026-11-09",
   "browser": "Microsoft Edge / Chromium",
   "checks": [
     "Portable HTML loads offline through file:// with no network requests.",
     "All 150 year x category x quintile states match the frozen CSV and update chart contexts.",
+    "Linked native tables, data-derived comparison titles and all 50 exported CSV values checked against source.",
+    "Essential data marks on white meet 3:1 contrast (minimum 3.82:1); selection also uses labels, outlines and width.",
     "Keyboard details, Escape dismissal, Space selection and pressed-state announcements work.",
     "No horizontal overflow at 320, 390, 768, 1280 and 1600 px.",
     "Tooltip stays within the viewport near the lower chart edge.",
+    "Print PDF generated with tables; four browser color-vision simulations captured for visual review. No real screen-reader user test claimed.",
     "No uncaught browser errors."
   ],
   "human_peer_testing": "Not conducted; not replaced by automated checks."

@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <a class="skip-link" href="#data-details">Skip charts to data tables</a>
     <div id="app">
       <header class="masthead">
         <div class="brand"><span class="brand-mark">↗</span> FOOD BUDGET ATLAS <span class="brand-subtitle"><span class="brand-divider">/</span> U.S. CONSUMER EXPENDITURES</span></div>
@@ -80,6 +81,15 @@
             <div class="chart-footnote">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
           </section>
         </div>
+
+        <section class="data-section" aria-labelledby="data-title">
+          <div class="data-toolbar"><h2 id="data-title">Explore the exact values</h2><div><button id="download-data" type="button">Download all data (CSV)</button><button id="print-dashboard" type="button">Print / save PDF</button></div></div>
+          <p>Annual means in current U.S. dollars. Every percentage uses total expenditures as its denominator. Tables follow the selected year and income quintile; the download includes all 50 records.</p>
+          <details id="data-details"><summary>View accessible data tables</summary>
+            <div class="table-scroll" role="region" aria-label="Selected year data; scroll horizontally for more columns" tabindex="0"><table class="data-table" id="comparison-table"><caption></caption><thead><tr></tr></thead><tbody></tbody></table></div>
+            <div class="table-scroll" role="region" aria-label="Selected quintile history; scroll horizontally for more columns" tabindex="0"><table class="data-table" id="history-table"><caption></caption><thead><tr></tr></thead><tbody></tbody></table></div>
+          </details>
+        </section>
 
         <section class="method" aria-labelledby="method-title">
           <div><span class="view-number">READING THE DATA</span><h2 id="method-title">A share, not an affordability score.</h2></div>

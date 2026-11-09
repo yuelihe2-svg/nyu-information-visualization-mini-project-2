@@ -2,7 +2,7 @@
 
 An interactive English-language dashboard for NYU Tandon's Information Visualization Mini-Project 2. It compares the share of annual U.S. consumer-unit expenditures spent on food across five income quintiles, separates food at home from food away from home, and follows the pattern from 2015 through 2024.
 
-## Working prototype - November 8, 2026
+## Working prototype - November 9, 2026
 
 Download and extract [Working_Prototype_Package.zip](output/Working_Prototype_Package.zip), then double-click `Food_Budget_Atlas.html`. It runs offline without installation. The bundle includes a [four-page brief with a dedicated cover](output/pdf/working-prototype-brief.pdf), a [detailed chart layout](docs/prototype-layout.svg), two annotated screenshots, the source and data, and English classroom preparation notes. The brief responds to the instructor's proposal feedback about vague sketches and a missing cover.
 
@@ -55,3 +55,10 @@ Run `npm run build` for the production build. With `npm run dev -- --port 4173` 
 ## Implementation
 
 The dashboard uses D3.js for SVG scales, axes, marks, and data loading, and Vite to build the local application. `src/main.js` holds the shared selection state and chart renderers. `src/styles.css` provides the visual hierarchy, responsive layout, and focus states. No third-party chart template was adapted. Code and data provenance are documented in [sources](docs/sources.md).
+
+
+## November 9 lecture-based improvements
+
+Week 6 (PDF pp. 6, 10–15, 19–20, 26, 37) informs focus/context, direct labels, data-derived insight titles, reduced motion and non-hover access. Native tables update with the year/quintile; all 50 records can be downloaded as CSV. Print/save-PDF expands the tables automatically. Essential data marks retain at least 3:1 contrast on white, including nonselected categories; outlines and line width communicate selection. Week 9 (PDF p. 37) supports the shared selection state.
+
+The package includes `Reflection.pdf` with lecture references, tradeoffs and the updated channel table. Browser simulations cover protanopia, deuteranopia, tritanopia and achromatopsia; they do not establish universal color-vision accessibility. Real screen-reader testing, classroom feedback and the final two-peer usability report remain pending. Automated verification is documented separately from human feedback.

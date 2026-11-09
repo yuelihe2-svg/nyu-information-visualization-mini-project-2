@@ -41,3 +41,16 @@ Course PDFs provided by the instructor, located in the parent `information` dire
 | 2026-11-08 | OpenAI Codex | Responded to instructor feedback with a dedicated prototype cover and a detailed data-based chart diagram; added context labels, keyboard details, offline packaging, two prototype screenshots, a classroom rehearsal guide, and automated verification. | Conduct the actual classroom demonstration, collect and report genuine peer feedback, and complete the final usability study. |
 
 The course allows AI assistance with code but requires student design decisions and citation of adapted material. The code and drafts here are disclosed; no peer testing results are claimed.
+
+
+## Additional lecture review and implementation — November 9, 2026
+
+Instructor PDFs supplied under `D:/Users/heelii/Downloads/` were reviewed for relevant guidance. References use PDF page numbers:
+
+- `Week 5-2D_Visualization.pdf`: hierarchy (37), cognitive load (38). The three different dashboard chart types are not claimed as small multiples.
+- `Week 6-TimeSeriesAccessibility.pdf`: focus/context (6), direct labels (10–11), insight titles (14), hover-only trap (15), animation tradeoffs (19–20), accessibility checklist (26), verification (37). This file has 40 PDF pages; printed slide numbering differs.
+- `Week 7- Graph visualization.pdf`: coordinated graph/matrix views (44); no network structure was invented for the expenditure data.
+- `Week_8-3D_Urban_Visualization.pdf`: dashboard organization (27), novice usability (43), uncertainty (44). No unsupported confidence intervals or 3D views were added.
+- `Week 9-Advanced-UrbanViz.pdf`: shared state across linked views (37).
+
+Codex assisted with this review and the implementation of native data tables, CSV export, print styles, data-derived chart titles, revised mark contrast, documentation and checks. The current palette replaces the earlier orange/context fills described in the historical October review. Data marks use teal #216d77, orange #b8622e, context #718783 and ink #17333a, with no opacity reduction. Browser simulations cover four types (protanopia, deuteranopia, tritanopia, achromatopsia), not all eight types listed in the lecture. Native table semantics and keyboard behavior were checked; no actual NVDA/VoiceOver user session is claimed. Student review of design decisions, code understanding and real peer testing remain required.

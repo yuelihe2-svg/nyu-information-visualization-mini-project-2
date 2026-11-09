@@ -6,7 +6,7 @@ import './styles.css';
 const state = { year: 2024, quintile: 'Lowest', type: 'all' };
 const quintiles = ['Lowest', 'Second', 'Middle', 'Fourth', 'Highest'];
 const names = { Lowest: 'Lowest 20%', Second: 'Second 20%', Middle: 'Middle 20%', Fourth: 'Fourth 20%', Highest: 'Highest 20%' };
-const colors = { home: '#216d77', away: '#df8751', ink: '#17333a', muted: '#a7b2af' };
+const colors = { home: '#216d77', away: '#b8622e', ink: '#17333a', muted: '#718783' };
 const fmtMoney = d3.format('$,.0f');
 const fmtPct = d3.format('.1f');
 const tooltip = d3.select('#tooltip');
@@ -94,6 +94,14 @@ function drawSummary() {
   d3.select('#compare-context').text(`${category} · ${state.year} · share of total expenditures`);
   d3.select('#composition-context').text(`${state.year} · both categories shown · selected: ${names[state.quintile]}`);
   d3.select('#trend-context').text(`${category} · dark line: ${names[state.quintile]} · selected year: ${state.year}`);
+  // Titles describe the current data, rather than retaining the initial finding.
+  const largest = d3.greatest(rows.filter(r => r.year === state.year), r => share(r));
+  d3.select('#quintile-title').text(`${largest.income_quintile} quintile has the largest share`);
+  d3.select('#composition-title').text(row.food_at_home_usd >= row.food_away_from_home_usd ? 'At-home spending is larger' : 'Away-from-home spending is larger');
+  const first = rows.find(r => r.year === 2015 && r.income_quintile === state.quintile);
+  const last = rows.find(r => r.year === 2024 && r.income_quintile === state.quintile);
+  const change = share(last) - share(first);
+  d3.select('#trend-title').text(`Share ${change >= 0 ? 'rose' : 'fell'} ${fmtPct(Math.abs(change))} pp from 2015 to 2024`);
   d3.select('#selection-announcement').text(`${names[state.quintile]}, ${state.year}. ${category}: ${fmtPct(share(row))} percent of total expenditures, ${fmtMoney(row[field(state.type)])}. All three charts updated.`);
 }
 
@@ -126,7 +134,7 @@ function drawQuintiles() {
   motion(marks).attr('transform', r => `translate(${x(share(r))},${y(r.income_quintile) + y.bandwidth()/2})`);
   marks.selectAll('.dot-target').data(r => [r]).join('circle').attr('class', 'dot-target').attr('r', 20).attr('fill', 'transparent');
   motion(marks.selectAll('.data-dot').data(r => [r]).join('circle').attr('class', 'data-dot')).attr('r', r => size(r.food_total_usd))
-    .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : '#b8c9c5')
+    .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : colors.muted)
     .attr('stroke', '#fff').attr('stroke-width', 2);
   marks.selectAll('.value-label').data(r => r.income_quintile === state.quintile ? [r] : []).join('text').attr('class', 'value-label')
     .attr('x', r => size(r.food_total_usd) + 9).attr('y', 4).text(r => `${fmtPct(share(r))}%`);
@@ -153,7 +161,7 @@ function drawComposition() {
   const bars = plot.selectAll('.segment').data(segments, d => `${d.row.income_quintile}-${d.type}`).join('rect').attr('class', 'segment')
     .attr('y', d => y(d.row.income_quintile)).attr('height', y.bandwidth()).attr('rx', 2)
     .attr('fill', d => colors[d.type])
-    .attr('stroke', d => d.row.income_quintile === state.quintile && state.type === d.type ? colors.ink : 'none')
+    .attr('stroke', d => d.row.income_quintile === state.quintile && state.type === d.type ? colors.ink : '#fff')
     .attr('stroke-width', 2)
     .attr('tabindex', 0).attr('role', 'button')
     .attr('aria-pressed', d => d.row.income_quintile === state.quintile && state.type === d.type)
@@ -163,7 +171,7 @@ function drawComposition() {
     .on('mouseenter', (event, d) => showTooltip(event, d.row, d.type)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip)
     .on('focus', (event, d) => showTooltip(event, d.row, d.type)).on('blur', hideTooltip);
   motion(bars).attr('x', d => x(d.start)).attr('width', d => Math.max(1, x(d.value)))
-    .attr('opacity', d => (state.type === 'all' || state.type === d.type) ? 1 : .32);
+    .attr('opacity', 1);
 }
 
 function drawTrend() {
@@ -184,12 +192,12 @@ function drawTrend() {
   const line = d3.line().x(r => x(r.year)).y(r => y(share(r)));
   const groups = quintiles.map(quintile => ({ quintile, data: rows.filter(r => r.income_quintile === quintile).sort((a,b) => a.year-b.year) }));
   motion(plot.selectAll('.trend-line').data(groups, g => g.quintile).join('path').attr('class', 'trend-line'))
-    .attr('d', g => line(g.data)).attr('stroke', g => g.quintile === state.quintile ? colors.ink : '#a8b7b5')
-    .attr('stroke-width', g => g.quintile === state.quintile ? 3 : 1.8).attr('opacity', g => g.quintile === state.quintile ? 1 : .8);
+    .attr('d', g => line(g.data)).attr('stroke', g => g.quintile === state.quintile ? colors.ink : colors.muted)
+    .attr('stroke-width', g => g.quintile === state.quintile ? 3 : 1.8).attr('opacity', 1);
   motion(plot.selectAll('.trend-point').data(rows, r => `${r.income_quintile}-${r.year}`).join('circle').attr('class', 'trend-point'))
     .attr('cx', r => x(r.year)).attr('cy', r => y(share(r)))
     .attr('r', r => r.year === state.year && r.income_quintile === state.quintile ? 6 : 3.6)
-    .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : '#a8b7b5')
+    .attr('fill', r => r.income_quintile === state.quintile ? colors.ink : colors.muted)
     .attr('stroke', '#fff').attr('stroke-width', 1.4);
   // An invisible larger hit target makes each year usable by mouse and keyboard.
   const targets = plot.selectAll('.trend-hit').data(rows.filter(r => r.income_quintile === state.quintile), r => r.year).join('circle').attr('class', 'trend-hit')
@@ -211,13 +219,36 @@ function drawTrend() {
     motion(plot.selectAll('.end-connector').data(endpoints, g => g.quintile).join('line').attr('class', 'end-connector'))
       .attr('x1', plotWidth + 2).attr('x2', plotWidth + 8)
       .attr('y1', g => g.originalY).attr('y2', g => g.labelY)
-      .attr('stroke', '#8da09c').attr('stroke-width', 1);
+      .attr('stroke', colors.muted).attr('stroke-width', 1);
     const labels = plot.selectAll('.end-label').data(endpoints, g => g.quintile).join('text').attr('class', 'end-label')
       .classed('selected', g => g.quintile === state.quintile).text(g => g.quintile);
     motion(labels).attr('x', plotWidth + 10).attr('y', g => g.labelY + 4);
   } else {
     plot.selectAll('.end-connector, .end-label').remove();
   }
+}
+
+// Native tables expose exact values without hover, SVG, or color interpretation.
+function drawTables() {
+  const populate = (selector, data, caption) => {
+    const table = d3.select(selector);
+    table.select('caption').text(caption);
+    const tr = table.select('tbody').selectAll('tr').data(data).join('tr');
+    tr.selectAll('*').remove();
+    tr.append('th').attr('scope', 'row').text(r => `${r.year} · ${names[r.income_quintile]}`);
+    const cells = r => [fmtMoney(r.total_expenditures_usd), fmtMoney(r.food_total_usd), fmtMoney(r.food_at_home_usd), fmtMoney(r.food_away_from_home_usd), `${fmtPct(share(r, 'all'))}%`, `${fmtPct(share(r, 'home'))}%`, `${fmtPct(share(r, 'away'))}%`];
+    tr.selectAll('td').data(cells).join('td').text(d => d);
+  };
+  populate('#comparison-table', rows.filter(r => r.year === state.year), `${state.year}: all five income quintiles`);
+  populate('#history-table', rows.filter(r => r.income_quintile === state.quintile), `${names[state.quintile]}: annual values, 2015–2024`);
+}
+
+function downloadData() {
+  const data = rows.map(r => ({ ...r, food_share_pct: share(r, 'all'), home_share_pct: share(r, 'home'), away_share_pct: share(r, 'away') }));
+  const url = URL.createObjectURL(new Blob([d3.csvFormat(data)], { type: 'text/csv;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'food-budget-atlas-2015-2024.csv'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function render(animate = false) {
@@ -227,6 +258,7 @@ function render(animate = false) {
   drawQuintiles();
   drawComposition();
   drawTrend();
+  drawTables();
 }
 
 async function init() {
@@ -241,8 +273,24 @@ async function init() {
   d3.selectAll('#type-control button').on('click', function () { select({ type: this.dataset.type }); });
   d3.select('#year-select').on('change', function () { select({ year: +this.value }); });
   d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all' }));
+  const headers = ['Year · income quintile', 'Total spending ($)', 'All food ($)', 'At home ($)', 'Away ($)', 'All food (%)', 'At home (%)', 'Away (%)'];
+  d3.selectAll('.data-table thead tr').selectAll('th').data(headers).join('th').attr('scope', 'col').text(d => d);
+  d3.select('#download-data').on('click', downloadData);
+  d3.select('#print-dashboard').on('click', () => window.print());
+  let detailsWereOpen = false;
+  window.addEventListener('beforeprint', () => {
+    const details = document.querySelector('#data-details');
+    detailsWereOpen = details.open; details.open = true; render();
+  });
+  window.addEventListener('afterprint', () => { document.querySelector('#data-details').open = detailsWereOpen; render(); });
   d3.select(window).on('keydown.tooltip', event => { if (event.key === 'Escape') hideTooltip(); });
-  d3.select(window).on('scroll.tooltip', hideTooltip);
+  d3.select(window).on('scroll.tooltip', () => {
+    const focused = document.activeElement;
+    if (focused?.matches('svg [tabindex]') && tooltip.classed('visible')) {
+      const bounds = focused.getBoundingClientRect();
+      moveTooltip({ clientX: bounds.right, clientY: bounds.bottom });
+    } else hideTooltip();
+  });
   new ResizeObserver(() => render()).observe(d3.select('.dashboard-grid').node());
   render();
   reducedMotion.addEventListener('change', () => render());

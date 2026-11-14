@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f7f4ee" />
-    <title>Food Takes a Larger Share of Lower-Income Budgets | U.S. Food Budget Atlas</title>
+    <title>Food Budget Atlas | U.S. Food Spending</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
@@ -19,9 +19,9 @@
 
       <main>
         <section class="hero">
-          <div class="eyebrow">ALL-FOOD OVERVIEW · 2015–2024</div>
-          <h1>Lower-income groups spend a <em>larger share</em> on food.</h1>
-          <p class="lede">Total food spending takes a different share of each income group’s expenditure budget. At-home and away-from-home patterns can differ. Select a dot, year, or food segment to explore the pattern.</p>
+          <div class="eyebrow">U.S. FOOD SPENDING · 2015–2024</div>
+          <h1>Food Budget <em>Atlas</em></h1>
+          <p class="lede">Explore how food spending differs across income groups, food categories, and years.</p>
         </section>
 
         <section class="controls" aria-label="Dashboard controls">
@@ -56,20 +56,14 @@
             <strong id="spending-value">—</strong>
             <p>Mean per consumer unit, current dollars</p>
           </div>
-          <div class="summary-aside last">
-            <span class="summary-label">LOWEST MINUS HIGHEST</span>
-            <strong id="gap-value">—</strong>
-            <p>Percentage points in the selected year</p>
-          </div>
         </section>
 
         <div class="dashboard-grid">
           <section class="card card-main" aria-labelledby="quintile-title">
-            <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = all-food dollars</span></div>
+            <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = annual all-food dollars</span></div>
             <p class="card-description" id="compare-context">All food · 2024 · share of total expenditures</p>
             <div id="quintile-chart" class="chart" role="group" aria-label="Dot plot of the food budget share for five income quintiles"></div>
             <div id="size-legend" aria-label="Annual all-food spending size reference"></div>
-            <div class="chart-footnote">Click a dot to select an income quintile. Dot area always shows annual <strong>all-food dollars</strong>, even when filtering by category. Income rank uses income before taxes.</div>
           </section>
 
           <section class="card card-composition" aria-labelledby="composition-title">
@@ -77,11 +71,10 @@
             <p class="card-description" id="composition-context">2024 · both categories shown · selected: Lowest 20%</p>
             <div id="composition-chart" class="chart" role="group" aria-label="Stacked bar chart showing at-home and away-from-home food spending by income quintile"></div>
             <div class="legend"><span><i class="swatch home"></i> At home</span><span><i class="swatch away"></i> Away from home</span></div>
-            <p class="interaction-hint">Click a segment to select its category and quintile. Both lengths use total expenditures as the denominator.</p>
           </section>
 
           <section class="card card-trend" aria-labelledby="trend-title">
-            <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div><span class="chart-note">Compare levels or inspect changes</span></div>
+            <div class="card-header"><div><span class="view-number">03 / FOLLOW TIME</span><h2 id="trend-title">How the share changed</h2></div></div>
             <p class="card-description" id="trend-context">All food · dark line: Lowest 20% · selected year: 2024</p>
             <div class="trend-controls">
               <div class="segmented" id="trend-mode" role="group" aria-label="Trend layout">
@@ -94,14 +87,14 @@
             <div id="trend-facets" hidden></div>
             <div id="trend-chart" class="chart" role="group" aria-label="Line chart showing food budget share from 2015 to 2024 for five income quintiles"></div>
             <p class="trend-observation" id="trend-observation"></p>
-            <div class="chart-footnote" id="trend-instructions">Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</div>
           </section>
         </div>
 
         <section class="data-section" aria-labelledby="data-title">
           <div class="data-toolbar"><h2 id="data-title">Explore the exact values</h2><div><button id="download-data" type="button">Download all data (CSV)</button><button id="print-dashboard" type="button">Print data report</button></div></div>
-          <p>Annual means in current U.S. dollars. Every percentage uses total expenditures as its denominator. Tables follow the selected year and income quintile; the download includes all 50 records. Print creates a summary and data-table report.</p>
+          <p>Annual averages in current U.S. dollars. Shares use total spending.</p>
           <details id="data-details"><summary>View accessible data tables</summary>
+            <p>Tables follow the selected year and group. The download includes all 50 records. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</p>
             <div class="table-scroll" role="region" aria-label="Selected year data; scroll horizontally for more columns" tabindex="0"><table class="data-table" id="comparison-table"><caption></caption><thead><tr></tr></thead><tbody></tbody></table></div>
             <div class="table-scroll" role="region" aria-label="Selected quintile history; scroll horizontally for more columns" tabindex="0"><table class="data-table" id="history-table"><caption></caption><thead><tr></tr></thead><tbody></tbody></table></div>
           </details>
@@ -109,7 +102,7 @@
 
         <section class="method" aria-labelledby="method-title">
           <div><span class="view-number">READING THE DATA</span><h2 id="method-title">A share, not an affordability score.</h2></div>
-          <p>Each point is an average annual expenditure for a group of consumer units, not the experience of every household. The budget share is food spending divided by total spending. Income groups are ranked separately each year, so the lines do not track the same households. Sampling uncertainty is not shown; small differences should not be treated as statistically significant. A higher share does not by itself establish food insecurity, prices paid, or causation. The at-home and away-from-home figures may differ from total food by $1–$2 because BLS rounds published means.</p>
+          <p>Each point is an average annual expenditure for a group of consumer units, not the experience of every household. The budget share is food spending divided by total spending. Income groups are ranked by income before taxes separately each year, so the lines do not track the same households. Sampling uncertainty is not shown; small differences should not be treated as statistically significant. A higher share does not by itself establish food insecurity, prices paid, or causation. The at-home and away-from-home figures may differ from total food by $1–$2 because BLS rounds published means.</p>
         </section>
       </main>
 

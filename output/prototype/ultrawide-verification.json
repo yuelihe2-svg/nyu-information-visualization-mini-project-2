@@ -1,0 +1,89 @@
+{
+  "scope": "3440x1440 equivalent CSS viewports and device scales; not a physical monitor or operating-system scaling test",
+  "results": [
+    {
+      "scale": 1,
+      "overflow": false,
+      "contextFont": "18px",
+      "axisFont": "14px",
+      "labels": [
+        {
+          "top": 1619.5625,
+          "bottom": 1635.5625
+        },
+        {
+          "top": 1639.5625,
+          "bottom": 1655.5625
+        },
+        {
+          "top": 1659.5625,
+          "bottom": 1675.5625
+        },
+        {
+          "top": 1679.5625,
+          "bottom": 1695.5625
+        },
+        {
+          "top": 1699.5625,
+          "bottom": 1715.5625
+        }
+      ]
+    },
+    {
+      "scale": 1.25,
+      "overflow": false,
+      "contextFont": "18px",
+      "axisFont": "14px",
+      "labels": [
+        {
+          "top": 1619.5625,
+          "bottom": 1635.5625
+        },
+        {
+          "top": 1639.5625,
+          "bottom": 1655.5625
+        },
+        {
+          "top": 1659.5625,
+          "bottom": 1675.5625
+        },
+        {
+          "top": 1679.5625,
+          "bottom": 1695.5625
+        },
+        {
+          "top": 1699.5625,
+          "bottom": 1715.5625
+        }
+      ]
+    },
+    {
+      "scale": 1.5,
+      "overflow": false,
+      "contextFont": "18px",
+      "axisFont": "14px",
+      "labels": [
+        {
+          "top": 1619.5625,
+          "bottom": 1635.5625
+        },
+        {
+          "top": 1639.5625,
+          "bottom": 1655.5625
+        },
+        {
+          "top": 1659.5625,
+          "bottom": 1675.5625
+        },
+        {
+          "top": 1679.5625,
+          "bottom": 1695.5625
+        },
+        {
+          "top": 1699.5625,
+          "bottom": 1715.5625
+        }
+      ]
+    }
+  ]
+}

@@ -10,11 +10,11 @@ INTRODUCTION
 
 1. COMPARE
 "The first chart compares budget shares. In 2024, the lowest-income group spent 15.7% of total expenditures on food, compared with 11.3% for the highest-income group. The circles also show all-food dollars through their area."
-Action: select the Highest dot. Point to the updated summary, highlighted breakdown row and dark trend line.
+Action: select the Highest dot on the TOP row (Lowest is on the BOTTOM row). Point to the updated summary, highlighted breakdown row and dark trend line.
 
 2. BREAK DOWN
 "The second chart splits food into at-home and away-from-home spending. Both categories use total expenditures as their denominator."
-Action: click the orange Middle segment. Show that the category control and the other charts now use away-from-home shares.
+Action: click the orange Middle segment on the THIRD row. Show that the category control and the other charts now use away-from-home shares.
 
 3. FOLLOW TIME
 "The third chart follows the selected category across time. The dark line is the selected income group; the other lines provide context."
@@ -35,4 +35,4 @@ Use docs/usability-testing.md in the source folder. Give each of two peers the s
 OPTIONAL TREND DEMONSTRATION (20 SECONDS)
 Choose Away from home, Small multiples, then Zoom Y-axis.
 "These lines are close together, so I added small multiples from Week 6. Each income group has its own panel, with the same scales. Zoom keeps zero and lowers only the upper limit, which is clearly labeled. It helps inspect small differences without changing the values. Selecting this 2020 point updates the group and year everywhere."
-Click a facet point, then Reset view to restore the full-scale overview.
+Panels follow Highest, Fourth, Middle, Second, Lowest in reading order (left to right, then top to bottom; one column on phones). Find Middle by its label, then click its 2020 point. Click Reset view to restore the full-scale overview.

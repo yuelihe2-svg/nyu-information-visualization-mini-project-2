@@ -27,6 +27,7 @@ try {
         assert(note.includes(zoom?`${domain[0]}–${domain[1]}%`:'0–20%'));
         const selector=mode==='facets'?'.facet-chart': '#trend-chart';
         assert.equal(await page.locator(selector).count(),mode==='facets'?5:1);
+        if (mode === 'facets') assert.deepEqual(await page.locator('.facet').evaluateAll(ns => ns.map(n => n.__data__)), ['Highest','Fourth','Middle','Second','Lowest']);
         const axes=await page.locator(`${selector} .y-axis`).allTextContents();
         assert(axes.every(a=>a===axes[0]),'Facets must share identical axis ticks');
         // Check geometry against the independently calculated domain, not just labels.
@@ -69,6 +70,6 @@ try {
   assert.equal(await page.locator('#share-value').innerText(),'15.7');
   checks.push('Keyboard selection retains focus; responsive facets fit 320–1440 px; Reset restores overlaid 0–20% view.');
   assert.deepEqual(errors,[]);checks.push('No uncaught browser errors.');
-  await writeFile(resolve(root,'output/prototype/trend-verification.json'),JSON.stringify({checked_on:'2026-11-09',checks},null,2));
+  await writeFile(resolve(root,'output/prototype/trend-verification.json'),JSON.stringify({checked_on:'2026-11-10',checks},null,2));
   console.log(checks.join('\n'));
 }finally{await browser.close();}

@@ -5,7 +5,9 @@ import { validateRows } from './data-validation.js';
 
 // One shared state drives every view. Each chart changes state through select().
 const state = { year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'overlay', zoom: false };
-const quintiles = ['Lowest', 'Second', 'Middle', 'Fourth', 'Highest'];
+// Source ranks stay 1 = Lowest through 5 = Highest. Display higher incomes first.
+const rankedQuintiles = ['Lowest', 'Second', 'Middle', 'Fourth', 'Highest'];
+const quintiles = [...rankedQuintiles].reverse();
 const names = { Lowest: 'Lowest 20%', Second: 'Second 20%', Middle: 'Middle 20%', Fourth: 'Fourth 20%', Highest: 'Highest 20%' };
 const colors = { home: '#216d77', away: '#b8622e', ink: '#17333a', muted: '#718783' };
 const fmtMoney = d3.format('$,.0f');
@@ -78,20 +80,17 @@ function chartFrame(selector, height, margins) {
 function axisStyle(selection) {
   selection.select('.domain').remove();
   selection.selectAll('line').attr('stroke', '#dbe1de');
-  selection.selectAll('text').attr('fill', '#59716f').attr('font-size', 11).attr('font-family', 'DM Sans, sans-serif');
+  selection.selectAll('text').attr('fill', '#59716f').attr('font-size', 14).attr('font-family', 'DM Sans, Arial, sans-serif');
 }
 
 function drawSummary() {
   const row = selectedRow();
-  const low = rows.find(r => r.year === state.year && r.income_quintile === 'Lowest');
-  const high = rows.find(r => r.year === state.year && r.income_quintile === 'Highest');
   const typeLabel = { all: 'food', home: 'food at home', away: 'food away from home' }[state.type];
   d3.select('#selected-label').text(`${names[state.quintile].toUpperCase()} INCOME QUINTILE · ${state.year}`);
   d3.select('#share-value').text(fmtPct(share(row)));
   d3.select('#summary-description').text(`of annual expenditures went to ${typeLabel}`);
   d3.select('#spending-label').text(`ANNUAL ${typeLabel.toUpperCase()} SPENDING`);
   d3.select('#spending-value').text(fmtMoney(row[field(state.type)]));
-  d3.select('#gap-value').text(`${fmtPct(share(low) - share(high))} pp`);
   d3.selectAll('#type-control button').classed('active', function () { return this.dataset.type === state.type; })
     .attr('aria-pressed', function () { return this.dataset.type === state.type; });
   d3.select('#year-select').property('value', state.year);
@@ -112,12 +111,12 @@ function drawSummary() {
   d3.select('#selection-announcement').text(`${names[state.quintile]}, ${state.year}. ${category}: ${fmtPct(share(row))} percent of total expenditures, ${fmtMoney(row[field(state.type)])}. All three charts updated.`);
   const previous = rows.find(r => r.year === state.year - 1 && r.income_quintile === state.quintile);
   d3.select('#trend-observation').text(previous
-    ? `${state.year - 1} → ${state.year}: ${fmtPct(share(previous))}% → ${fmtPct(share(row))}% (${d3.format('+.1f')(share(row) - share(previous))} pp). Observed group means; this does not establish a cause.`
-    : `2015 starts this series: ${fmtPct(share(row))}% of total expenditures. No earlier year is included.`);
+    ? `${state.year - 1} → ${state.year}: ${fmtPct(share(previous))}% → ${fmtPct(share(row))}% (${d3.format('+.1f')(share(row) - share(previous))} pp).`
+    : `2015: ${fmtPct(share(row))}% of total spending.`);
 }
 
 function drawQuintiles() {
-  const margin = { top: 14, right: 28, bottom: 36, left: 108 };
+  const margin = { top: 14, right: 58, bottom: 36, left: 108 };
   const { plot, plotWidth, plotHeight } = chartFrame('#quintile-chart', 288, margin);
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
@@ -127,7 +126,7 @@ function drawQuintiles() {
 
   plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
-  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
+  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues(plotWidth < 240 ? [0, 10, 20] : [0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
   plot.selectAll('.row-guide').data(quintiles).join('line').attr('class', 'row-guide')
     .attr('x1', 0).attr('x2', plotWidth).attr('y1', q => y(q) + y.bandwidth()/2).attr('y2', q => y(q) + y.bandwidth()/2);
   plot.selectAll('.row-label').data(quintiles).join('text').attr('class', 'row-label')
@@ -149,23 +148,24 @@ function drawQuintiles() {
     .attr('stroke', '#fff').attr('stroke-width', 2);
   marks.selectAll('.value-label').data(r => r.income_quintile === state.quintile ? [r] : []).join('text').attr('class', 'value-label')
     .attr('x', r => size(r.food_total_usd) + 9).attr('y', 4).text(r => `${fmtPct(share(r))}%`);
+  const legendWidth = Math.min(300, d3.select('#size-legend').node().clientWidth);
   const legend = d3.select('#size-legend').selectAll('svg').data([null]).join('svg')
-    .attr('width', 280).attr('height', 38).attr('viewBox', '0 0 280 38').attr('role', 'img')
+    .attr('width', legendWidth).attr('height', 42).attr('viewBox', `0 0 ${legendWidth} 42`).attr('role', 'img')
     .attr('aria-label', 'Circle area reference: 5,000, 10,000 and 15,000 dollars in annual all-food spending.');
-  const samples = legend.selectAll('g').data([5000,10000,15000]).join('g').attr('transform',(d,i)=>`translate(${20+i*91},19)`);
+  const samples = legend.selectAll('g').data([5000,10000,15000]).join('g').attr('transform',(d,i)=>`translate(${18+i*legendWidth/3},21)`);
   samples.selectAll('circle').data(d=>[d]).join('circle').attr('r',size).attr('fill',colors.muted).attr('stroke','#fff').attr('stroke-width',2);
-  samples.selectAll('text').data(d=>[d]).join('text').attr('x',16).attr('y',4).attr('fill',colors.ink).attr('font-size',11).text(d=>`$${d/1000}k`);
+  samples.selectAll('text').data(d=>[d]).join('text').attr('x',16).attr('y',4).attr('fill',colors.ink).attr('font-size',14).text(d=>`$${d/1000}k`);
 }
 
 function drawComposition() {
-  const margin = { top: 13, right: 28, bottom: 36, left: 108 };
+  const margin = { top: 13, right: 58, bottom: 36, left: 108 };
   const { plot, plotWidth, plotHeight } = chartFrame('#composition-chart', 288, margin);
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
   const y = d3.scaleBand().domain(quintiles).range([0, plotHeight]).padding(.38);
   plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickSize(plotHeight).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
-  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues([0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
+  plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues(plotWidth < 240 ? [0, 10, 20] : [0, 5, 10, 15, 20]).tickFormat(d => `${d}%`)).call(axisStyle);
   plot.selectAll('.row-label').data(quintiles).join('text').attr('class', 'row-label')
     .attr('x', -13).attr('y', q => y(q) + y.bandwidth()/2 + 4).attr('text-anchor', 'end')
     .classed('selected', q => q === state.quintile).text(q => names[q]);
@@ -208,11 +208,8 @@ function drawTrend() {
     .classed('active', function () { return this.dataset.mode === state.trendMode; });
   d3.select('#zoom-trend').property('checked', state.zoom);
   d3.select('#trend-scale-note').classed('zoomed', state.zoom).text(state.zoom
-    ? `Zoomed Y-axis: 0–${domain[1]}%. Zero is retained; only the upper limit changes. All years and quintiles in this category share this range. Dot and bar scales remain 0–20%.`
-    : 'Full Y-axis: 0–20%. Use Zoom Y-axis to inspect small differences.');
-  d3.select('#trend-instructions').text(facets
-    ? 'All five panels share the same X and Y scales. Select any point to update both the income quintile and year across the dashboard. Keyboard: Tab, then Enter or Space.'
-    : 'Click a point on the dark line to select a year. Choose the income quintile in either chart above. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.');
+    ? `Zoomed Y-axis: 0–${domain[1]}%. Same scale for all groups; dot and bar charts stay at 0–20%.`
+    : 'Y-axis: 0–20%.');
   d3.select('#trend-context').text(`${{all:'All food',home:'At home',away:'Away from home'}[state.type]} · selected: ${names[state.quintile]} · selected year: ${state.year} · ${facets ? 'small multiples' : 'overlaid lines'}`);
   if (facets) { drawFacets(domain); return; }
   drawOverlay(domain);
@@ -220,12 +217,12 @@ function drawTrend() {
 
 function drawOverlay(domain) {
   const compact = d3.select('#trend-chart').node().clientWidth < 620;
-  const margin = { top: 17, right: compact ? 22 : 92, bottom: 36, left: 46 };
+  const margin = { top: 17, right: compact ? 22 : 100, bottom: 36, left: 46 };
   const { plot, plotWidth, plotHeight } = chartFrame('#trend-chart', 306, margin);
   const x = d3.scaleLinear().domain([2015, 2024]).range([0, plotWidth]);
   const y = d3.scaleLinear().domain(domain).range([plotHeight, 0]);
   const ticks = state.zoom ? d3.ticks(...domain, 5) : [0, 5, 10, 15, 20];
-  const years = compact ? [2015, 2018, 2021, 2024] : [2015, 2017, 2019, 2021, 2023, 2024];
+  const years = plotWidth < 280 ? [2015, 2020, 2024] : compact ? [2015, 2018, 2021, 2024] : [2015, 2017, 2019, 2021, 2023, 2024];
   plot.selectAll('.grid').data([null]).join('g').attr('class', 'grid').call(d3.axisLeft(y).tickValues(ticks).tickSize(-plotWidth).tickFormat(''));
   plot.select('.grid').call(axisStyle).attr('opacity', .6);
   plot.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis').attr('transform', `translate(0,${plotHeight})`).call(d3.axisBottom(x).tickValues(years).tickFormat(d3.format('d'))).call(axisStyle);
@@ -258,7 +255,7 @@ function drawOverlay(domain) {
   if (!compact) {
     const endpoints = groups.map(g => ({ ...g, originalY: y(share(g.data.at(-1))) }))
       .sort((a, b) => a.originalY - b.originalY);
-    endpoints.forEach((g, i) => { g.labelY = i ? Math.max(g.originalY, endpoints[i - 1].labelY + 16) : g.originalY; });
+    endpoints.forEach((g, i) => { g.labelY = i ? Math.max(g.originalY, endpoints[i - 1].labelY + 20) : g.originalY; });
     const overflow = Math.max(0, endpoints.at(-1).labelY - plotHeight);
     endpoints.forEach(g => { g.labelY -= overflow; });
     motion(plot.selectAll('.end-connector').data(endpoints, g => g.quintile).join('line').attr('class', 'end-connector'))
@@ -283,7 +280,7 @@ function drawFacets(domain) {
   panels.select('h3').text(q => `${names[q]}${q === state.quintile ? ' · Selected' : ''}`);
   panels.each(function(q) {
     const host = d3.select(this).select('.facet-chart').attr('aria-label', `${names[q]}, annual food share; ${domain[0]} to ${domain[1]} percent`).node();
-    const { plot, plotWidth, plotHeight } = chartFrame(host, 190, {top:14,right:16,bottom:30,left:42});
+    const { plot, plotWidth, plotHeight } = chartFrame(host, 190, {top:14,right:24,bottom:30,left:46});
     const data = rows.filter(r => r.income_quintile === q).sort((a,b) => a.year-b.year);
     const x = d3.scaleLinear().domain([2015,2024]).range([0,plotWidth]);
     const y = d3.scaleLinear().domain(domain).range([plotHeight,0]);
@@ -353,7 +350,9 @@ async function init() {
     total_expenditures_usd: +d.total_expenditures_usd, food_total_usd: +d.food_total_usd,
     food_at_home_usd: +d.food_at_home_usd, food_away_from_home_usd: +d.food_away_from_home_usd,
   }));
-  validateRows(rows, quintiles);
+  validateRows(rows, rankedQuintiles);
+  // Match visual, keyboard and table order without changing source rank meanings.
+  rows.sort((a, b) => a.year - b.year || b.quintile_rank - a.quintile_rank);
   d3.select('#year-select').selectAll('option').data(d3.range(2024, 2014, -1)).join('option')
     .attr('value', d => d).text(d => d);
   d3.select('#quintile-select').selectAll('option').data(quintiles).join('option').attr('value',d=>d).text(d=>names[d]);

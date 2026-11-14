@@ -1,8 +1,9 @@
 {
-  "checked_on": "2026-11-09",
+  "checked_on": "2026-11-10",
   "browser": "Microsoft Edge / Chromium",
   "checks": [
     "Portable HTML loads offline through file:// with no network requests.",
+    "Dot/bar rows, keyboard mark order, income options and comparison table consistently run Highest to Lowest.",
     "All 150 year x category x quintile states match the frozen CSV and update chart contexts.",
     "Linked native tables, data-derived comparison titles and all 50 exported CSV values checked against source.",
     "Essential data marks on white meet 3:1 contrast (minimum 3.82:1); selection also uses labels, outlines and width.",

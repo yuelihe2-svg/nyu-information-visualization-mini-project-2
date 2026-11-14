@@ -2,11 +2,15 @@
 
 An interactive English-language dashboard for NYU Tandon's Information Visualization Mini-Project 2. It compares the share of annual U.S. consumer-unit expenditures spent on food across five income quintiles, separates food at home from food away from home, and follows the pattern from 2015 through 2024.
 
-## Working prototype - November 9, 2026
+## Current working prototype
 
-Download and extract [Working_Prototype_Package.zip](output/Working_Prototype_Package.zip), then double-click `Food_Budget_Atlas.html`. It runs offline without installation. The bundle includes a [four-page brief with a dedicated cover](output/pdf/working-prototype-brief.pdf), a [detailed chart layout](docs/prototype-layout.svg), two annotated screenshots, the source and data, and English classroom preparation notes. The brief responds to the instructor's proposal feedback about vague sketches and a missing cover.
+**Open the dashboard:** https://yuelihe2-svg.github.io/nyu-information-visualization-mini-project-2/
 
-The classroom demonstration and genuine feedback log remain to be completed. See [prototype requirements and evidence](docs/working-prototype.md). A blank feedback template is provided as preparation, not as completed evidence. The private repository needs grader access if a repository link is submitted; the ZIP includes the source as an access fallback.
+The public website requires no login or installation. It contains the latest project title, simplified two-part summary, consistent highest-to-lowest income order, and linked charts with Small multiples and Zoom.
+
+For offline use, download `output/prototype/Food_Budget_Atlas.html` and open it in a browser. The latest two annotated screenshots are in `output/prototype/screenshots/`. Source code is on `main`; the self-contained public website is on `gh-pages`.
+
+Older PDF/ZIP files in this repository are historical milestones. The current Week 7 course submission package, peer feedback and recording are kept separately for the course portal. The final structured usability study remains pending.
 
 ## Run locally
 

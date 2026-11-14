@@ -19,6 +19,17 @@ try {
   await page.waitForFunction(() => document.querySelector('#share-value')?.textContent === '15.7');
   assert.deepEqual(requests, [], 'Portable startup must not request network assets');
   checks.push('Portable HTML loads offline through file:// with no network requests.');
+  const expectedOrder = ['Highest', 'Fourth', 'Middle', 'Second', 'Lowest'];
+  for (const chart of ['#quintile-chart', '#composition-chart']) {
+    assert.deepEqual(await page.locator(`${chart} .row-label`).allTextContents(), expectedOrder.map(q => `${q} 20%`));
+    const positions = await page.locator(`${chart} .row-label`).evaluateAll(ns => ns.map(n => n.getBoundingClientRect().y));
+    assert(positions.every((y,i) => i === 0 || y > positions[i-1]), 'Higher-income rows must be above lower-income rows');
+  }
+  assert.deepEqual(await page.locator('.dot-hit').evaluateAll(ns => ns.map(n => n.__data__.income_quintile)), expectedOrder);
+  assert.deepEqual(await page.locator('.segment').evaluateAll(ns => ns.map(n => n.__data__.row.income_quintile)), expectedOrder.flatMap(q => [q,q]));
+  assert.deepEqual(await page.locator('#quintile-select option').evaluateAll(ns => ns.map(n => n.value)), expectedOrder);
+  assert.deepEqual(await page.locator('#comparison-table tbody th').allTextContents(), expectedOrder.map(q => `2024 · ${q} 20%`));
+  checks.push('Dot/bar rows, keyboard mark order, income options and comparison table consistently run Highest to Lowest.');
 
   // Exercise every year, category and quintile through the public controls.
   for (const type of ['all', 'home', 'away']) {
@@ -47,7 +58,7 @@ try {
   checks.push('All 150 year x category x quintile states match the frozen CSV and update chart contexts.');
   await page.locator('#reset-button').click();
   await page.locator('#data-details summary').click();
-  const dataRow = await page.locator('#comparison-table tbody tr').first().innerText();
+  const dataRow = await page.locator('#comparison-table tbody tr').filter({hasText:'Lowest 20%'}).innerText();
   assert(dataRow.includes('$35,046') && dataRow.includes('$5,498') && dataRow.includes('15.7%'));
   const downloadPromise = page.waitForEvent('download');
   await page.locator('#download-data').click();
@@ -109,7 +120,7 @@ try {
   assert.deepEqual(errors, []);
   checks.push('No uncaught browser errors.');
   await mkdir(resolve(root, 'output/prototype'), {recursive:true});
-  await writeFile(resolve(root, 'output/prototype/verification.json'), JSON.stringify({checked_on:'2026-11-09', browser:'Microsoft Edge / Chromium', checks, human_peer_testing:'Not conducted; not replaced by automated checks.'}, null, 2));
+  await writeFile(resolve(root, 'output/prototype/verification.json'), JSON.stringify({checked_on:'2026-11-10', browser:'Microsoft Edge / Chromium', checks, human_peer_testing:'Not conducted; not replaced by automated checks.'}, null, 2));
   console.log(checks.join('\n'));
 } finally {
   await browser.close();

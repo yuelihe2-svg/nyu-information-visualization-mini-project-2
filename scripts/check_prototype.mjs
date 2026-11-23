@@ -121,7 +121,7 @@ try {
   assert.deepEqual(errors, []);
   checks.push('No uncaught browser errors.');
   await mkdir(resolve(root, 'output/prototype'), {recursive:true});
-  await writeFile(resolve(root, 'output/prototype/verification.json'), JSON.stringify({checked_on:'2026-11-10', browser:'Microsoft Edge / Chromium', checks, human_peer_testing:'Not conducted; not replaced by automated checks.'}, null, 2));
+  await writeFile(resolve(root, 'output/prototype/verification.json'), JSON.stringify({checked_on:new Date().toISOString(), browser:'Microsoft Edge / Chromium', checks, human_peer_testing:'Outside this automated suite; see the final report for participant-written task responses.'}, null, 2));
   console.log(checks.join('\n'));
 } finally {
   await browser.close();

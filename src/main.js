@@ -221,7 +221,7 @@ function drawTrend() {
 
 function drawOverlay(domain) {
   const compact = d3.select('#trend-chart').node().clientWidth < 620;
-  const margin = { top: 17, right: compact ? 22 : 100, bottom: 36, left: 46 };
+  const margin = { top: 17, right: compact ? 22 : 126, bottom: 36, left: 50 };
   const { plot, plotWidth, plotHeight } = chartFrame('#trend-chart', 306, margin);
   const x = d3.scaleLinear().domain([2015, 2024]).range([0, plotWidth]);
   const y = d3.scaleLinear().domain(domain).range([plotHeight, 0]);
@@ -259,7 +259,7 @@ function drawOverlay(domain) {
   if (!compact) {
     const endpoints = groups.map(g => ({ ...g, originalY: y(share(g.data.at(-1))) }))
       .sort((a, b) => a.originalY - b.originalY);
-    endpoints.forEach((g, i) => { g.labelY = i ? Math.max(g.originalY, endpoints[i - 1].labelY + 20) : g.originalY; });
+    endpoints.forEach((g, i) => { g.labelY = i ? Math.max(g.originalY, endpoints[i - 1].labelY + 28) : g.originalY; });
     const overflow = Math.max(0, endpoints.at(-1).labelY - plotHeight);
     endpoints.forEach(g => { g.labelY -= overflow; });
     motion(plot.selectAll('.end-connector').data(endpoints, g => g.quintile).join('line').attr('class', 'end-connector'))

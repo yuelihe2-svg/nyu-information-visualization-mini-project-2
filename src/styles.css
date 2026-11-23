@@ -148,3 +148,11 @@ select { border-color: #718783; }
 
 .dollar-label { fill: #17333a; font: 14px Arial, sans-serif; pointer-events: none; }
 @media (min-width: 1800px) { .row-label, .end-label, .dollar-label { font-size: 16px; } .card h2 { font-size: 34px; } }
+
+/* Peer review: readable reference text and explicit scale changes on desktop. */
+@media (min-width: 1000px) {
+  .tick text { font-size: 16px; }
+  .chart-note, .scale-note, .trend-observation, .legend { font-size: 18px; }
+  .end-label { font-size: 16px; }
+}
+.scale-note { font-weight: 600; }

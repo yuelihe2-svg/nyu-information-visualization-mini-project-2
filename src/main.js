@@ -4,7 +4,7 @@ import './styles.css';
 import { validateRows } from './data-validation.js';
 
 // One shared state drives every view. Each chart changes state through select().
-const state = { year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'overlay', zoom: false };
+const state = { year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'facets', zoom: true };
 // Source ranks stay 1 = Lowest through 5 = Highest. Display higher incomes first.
 const rankedQuintiles = ['Lowest', 'Second', 'Middle', 'Fourth', 'Highest'];
 const quintiles = [...rankedQuintiles].reverse();
@@ -117,7 +117,7 @@ function drawSummary() {
 
 function drawQuintiles() {
   const margin = { top: 14, right: 58, bottom: 36, left: 108 };
-  const { plot, plotWidth, plotHeight } = chartFrame('#quintile-chart', 288, margin);
+  const { plot, plotWidth, plotHeight } = chartFrame('#quintile-chart', 340, margin);
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
   const y = d3.scaleBand().domain(quintiles).range([0, plotHeight]).padding(.38);
@@ -136,7 +136,7 @@ function drawQuintiles() {
   const marks = plot.selectAll('.dot-hit').data(current, r => r.income_quintile).join('g').attr('class', 'dot-hit')
     .attr('tabindex', 0).attr('role', 'button')
     .attr('aria-pressed', r => r.income_quintile === state.quintile)
-    .attr('aria-label', r => `${names[r.income_quintile]}, ${state.year}: ${fmtPct(share(r))} percent. Select quintile.`)
+    .attr('aria-label', r => `${names[r.income_quintile]}, ${state.year}: ${fmtPct(share(r))} percent; annual all-food spending ${fmtMoney(r.food_total_usd)}, not inflation adjusted. Select quintile.`)
     .on('click', (event, r) => select({ quintile: r.income_quintile }))
     .on('keydown', (event, r) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select({ quintile: r.income_quintile }); } })
     .on('mouseenter', (event, r) => showTooltip(event, r)).on('mousemove', moveTooltip).on('mouseleave', hideTooltip)
@@ -148,6 +148,10 @@ function drawQuintiles() {
     .attr('stroke', '#fff').attr('stroke-width', 2);
   marks.selectAll('.value-label').data(r => r.income_quintile === state.quintile ? [r] : []).join('text').attr('class', 'value-label')
     .attr('x', r => size(r.food_total_usd) + 9).attr('y', 4).text(r => `${fmtPct(share(r))}%`);
+  // Exact labels complement area, which is only a rough magnitude cue.
+  marks.selectAll('.dollar-label').data(r => [r]).join('text').attr('class', 'dollar-label')
+    .attr('x', 0).attr('y', 24).attr('text-anchor', 'middle')
+    .text(r => fmtMoney(r.food_total_usd));
   const legendWidth = Math.min(300, d3.select('#size-legend').node().clientWidth);
   const legend = d3.select('#size-legend').selectAll('svg').data([null]).join('svg')
     .attr('width', legendWidth).attr('height', 42).attr('viewBox', `0 0 ${legendWidth} 42`).attr('role', 'img')
@@ -159,7 +163,7 @@ function drawQuintiles() {
 
 function drawComposition() {
   const margin = { top: 13, right: 58, bottom: 36, left: 108 };
-  const { plot, plotWidth, plotHeight } = chartFrame('#composition-chart', 288, margin);
+  const { plot, plotWidth, plotHeight } = chartFrame('#composition-chart', 340, margin);
   const current = rows.filter(r => r.year === state.year);
   const x = d3.scaleLinear().domain([0, 20]).range([0, plotWidth]);
   const y = d3.scaleBand().domain(quintiles).range([0, plotHeight]).padding(.38);
@@ -366,7 +370,7 @@ async function init() {
   });
   d3.selectAll('#type-control button').on('click', function () { select({ type: this.dataset.type }); });
   d3.select('#year-select').on('change', function () { select({ year: +this.value }); });
-  d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'overlay', zoom: false }));
+  d3.select('#reset-button').on('click', () => select({ year: 2024, quintile: 'Lowest', type: 'all', trendMode: 'facets', zoom: true }));
   d3.selectAll('#trend-mode button').on('click', function () { select({trendMode: this.dataset.mode}); });
   d3.select('#zoom-trend').on('change', function () { select({zoom:this.checked}); });
   const headers = ['Year · income quintile', 'Total spending ($)', 'All food ($)', 'At home ($)', 'Away ($)', 'All food (%)', 'At home (%)', 'Away (%)'];

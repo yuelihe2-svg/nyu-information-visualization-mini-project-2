@@ -54,13 +54,13 @@
           <div class="summary-aside">
             <span class="summary-label" id="spending-label">ANNUAL FOOD SPENDING</span>
             <strong id="spending-value">—</strong>
-            <p>Mean per consumer unit, current dollars</p>
+            <p>Mean per consumer unit · Not inflation adjusted</p>
           </div>
         </section>
 
         <div class="dashboard-grid">
           <section class="card card-main" aria-labelledby="quintile-title">
-            <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot area = annual all-food dollars</span></div>
+            <div class="card-header"><div><span class="view-number">01 / COMPARE</span><h2 id="quintile-title">The share of each budget</h2></div><span class="chart-note">Dot size and labels = annual all-food dollars</span></div>
             <p class="card-description" id="compare-context">All food · 2024 · share of total expenditures</p>
             <div id="quintile-chart" class="chart" role="group" aria-label="Dot plot of the food budget share for five income quintiles"></div>
             <div id="size-legend" aria-label="Annual all-food spending size reference"></div>
@@ -78,10 +78,10 @@
             <p class="card-description" id="trend-context">All food · dark line: Lowest 20% · selected year: 2024</p>
             <div class="trend-controls">
               <div class="segmented" id="trend-mode" role="group" aria-label="Trend layout">
-                <button type="button" data-mode="overlay" aria-pressed="true">Overlaid trends</button>
-                <button type="button" data-mode="facets" aria-pressed="false">Small multiples</button>
+                <button type="button" data-mode="overlay" aria-pressed="false">Overlaid trends</button>
+                <button type="button" data-mode="facets" aria-pressed="true">Small multiples</button>
               </div>
-              <label class="zoom-control"><input type="checkbox" id="zoom-trend" aria-describedby="trend-scale-note" /> Zoom Y-axis</label>
+              <label class="zoom-control"><input type="checkbox" checked id="zoom-trend" aria-describedby="trend-scale-note" /> Zoom Y-axis</label>
             </div>
             <p id="trend-scale-note" class="scale-note" aria-live="polite"></p>
             <div id="trend-facets" hidden></div>
@@ -92,7 +92,7 @@
 
         <section class="data-section" aria-labelledby="data-title">
           <div class="data-toolbar"><h2 id="data-title">Explore the exact values</h2><div><button id="download-data" type="button">Download all data (CSV)</button><button id="print-dashboard" type="button">Print data report</button></div></div>
-          <p>Annual averages in current U.S. dollars. Shares use total spending.</p>
+          <p>Annual averages in nominal U.S. dollars (not inflation adjusted). Shares use total spending.</p>
           <details id="data-details"><summary>View accessible data tables</summary>
             <p>Tables follow the selected year and group. The download includes all 50 records. Keyboard: Tab to a mark, Enter or Space to select, Escape to dismiss details.</p>
             <div class="table-scroll" role="region" aria-label="Selected year data; scroll horizontally for more columns" tabindex="0"><table class="data-table" id="comparison-table"><caption></caption><thead><tr></tr></thead><tbody></tbody></table></div>

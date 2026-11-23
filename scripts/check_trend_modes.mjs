@@ -65,10 +65,10 @@ try {
   await page.locator('[data-mode="overlay"]').click();
   await page.locator('.card-trend').screenshot({path:resolve(root,'tmp/trend-modes/overlay-zoom.png')});
   await page.locator('#reset-button').click();
-  assert.equal(await page.locator('[data-mode="overlay"]').getAttribute('aria-pressed'),'true');
-  assert.equal(await page.locator('#zoom-trend').isChecked(),false);
+  assert.equal(await page.locator('[data-mode="facets"]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('#zoom-trend').isChecked(),true);
   assert.equal(await page.locator('#share-value').innerText(),'15.7');
-  checks.push('Keyboard selection retains focus; responsive facets fit 320–1440 px; Reset restores overlaid 0–20% view.');
+  checks.push('Keyboard selection retains focus; responsive facets fit 320–1440 px; Reset restores small multiples with shared zero-based zoom.');
   assert.deepEqual(errors,[]);checks.push('No uncaught browser errors.');
   await writeFile(resolve(root,'output/prototype/trend-verification.json'),JSON.stringify({checked_on:'2026-11-10',checks},null,2));
   console.log(checks.join('\n'));

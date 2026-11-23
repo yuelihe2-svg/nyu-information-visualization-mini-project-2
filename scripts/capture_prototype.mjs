@@ -37,7 +37,7 @@ try {
   await capture('01-overview.png','01 / OVERVIEW - Which income group spends the largest share on food?',
     '2024, all food: Lowest 20% = 15.7%; Highest 20% = 11.3%. Read the dot plot, then the home/away composition, then the time trend. All percentages use total expenditures as the denominator.');
   await page.locator('.segment[aria-label^="Middle 20%, away"]').click();
-  await page.locator('.trend-hit[aria-label^="Middle 20%, 2020:"]').click();
+  await page.locator('.facet-hit[aria-label^="Middle 20%, 2020:"]').click();
   await page.locator('[data-mode="facets"]').click();
   await page.locator('#zoom-trend').check();
   await capture('02-linked-selection.png','02 / SMALL MULTIPLES + ZOOM - Middle-income group, away from home, 2020',

@@ -4,13 +4,13 @@ body { margin: 0; }
 button, select { font: inherit; }
 button { cursor: pointer; }
 a { color: inherit; }
-#app { max-width: 1600px; margin: auto; }
+#app { width: 100%; margin: auto; }
 .masthead { flex-wrap: wrap; row-gap: 10px; padding-top: 12px; padding-bottom: 12px; min-height: 62px; border-bottom: 1px solid #d8dfda; display: flex; align-items: center; justify-content: space-between; padding: 0 5.5%; gap: 16px; }
 .brand { font-size: 14px; font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
 .brand-mark { display: inline-flex; font-size: 17px; margin-right: 8px; transform: translateY(2px); }
 .brand-divider { padding: 0 9px; color: #b8c4bd; }
 .source-link { font-size: 14px; font-weight: 700; text-decoration: none; border-bottom: 1px solid #93a7a1; padding-bottom: 3px; white-space: nowrap; }
-main { padding: 0 5.5% 68px; }
+main { padding: 0 clamp(18px, 3vw, 80px) 68px; }
 .hero { padding: 57px 0 31px; max-width: 860px; }
 .eyebrow, .view-number, .control-label, .summary-label { font-size: 14px; letter-spacing: .10em; font-weight: 700; color: #526d66; }
 h1, h2 { font-family: Newsreader, Georgia, serif; font-weight: 500; margin: 0; }
@@ -145,3 +145,6 @@ select { border-color: #718783; }
 @media (max-width: 1100px) { .brand-subtitle { display: none; } }
 @media (max-width: 600px) { .segmented button { padding: 9px 10px; } .summary { grid-template-columns: 1fr; } .summary-main { grid-column: auto; } .chart-note { display: block; } }
 @media print { .data-table { font-size: 9pt; } }
+
+.dollar-label { fill: #17333a; font: 14px Arial, sans-serif; pointer-events: none; }
+@media (min-width: 1800px) { .row-label, .end-label, .dollar-label { font-size: 16px; } .card h2 { font-size: 34px; } }

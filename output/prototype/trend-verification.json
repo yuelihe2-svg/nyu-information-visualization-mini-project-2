@@ -3,7 +3,7 @@
   "checks": [
     "All 12 category/layout/scale combinations have correct geometry and identical scales across facets; zoom covers all 50 observations.",
     "All 150 category/year/quintile facet selections update the summary, other views and tables without rescaling.",
-    "Keyboard selection retains focus; responsive facets fit 320–1440 px; Reset restores overlaid 0–20% view.",
+    "Keyboard selection retains focus; responsive facets fit 320–1440 px; Reset restores small multiples with shared zero-based zoom.",
     "No uncaught browser errors."
   ]
 }

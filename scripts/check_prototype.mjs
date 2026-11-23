@@ -102,6 +102,7 @@ try {
   checks.push('No horizontal overflow at 320, 390, 768, 1280 and 1600 px.');
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#reset-button').click();
+  await page.locator('[data-mode="overlay"]').click();
   await page.locator('.trend-hit').last().scrollIntoViewIfNeeded();
   await page.locator('.trend-hit').last().hover();
   const bounds = await page.locator('#tooltip').boundingBox();
